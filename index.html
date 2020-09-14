@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<title>Leon Bubova - Entwickler</title>
+	<meta name="author" content="">
+	<meta name="description" content="A Personal Portfolio Website to showcase my projects and experiences">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="myscript.js"></script>
+</head>
+
+<body>
+	<div id="extra-header">
+		<div id="header-container">
+			<div id="extra-logo"><span id="extra-l">L</span><span id="extra-b">B</span></div>
+			<div id="extra-navigation">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black;"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+			</div>
+		</div>
+	</div>
+	<div id="hero">
+		<div id="logo"><span id="l">L</span><span id="b">B</span></div>
+		<div id="welcome">
+			<h1 id="heading">hi, ich bin leon.</h1>
+			<h2 id="subline">entwickler und minimalist</h2>
+		</div>
+		<div id="navigation">
+			<ul>
+				<li><a href="#about-me">über mich.</a></li>
+				<li><a href="#projects">projekte.</a></li>
+				<li><a href="#contact">kontakt.</a></li>
+			</ul>
+		</div>
+		<div id="to-bottom">
+			<a href="#about-me"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24"/><path d="M12,4c4.41,0,8,3.59,8,8s-3.59,8-8,8s-8-3.59-8-8S7.59,4,12,4 M12,2C6.48,2,2,6.48,2,12c0,5.52,4.48,10,10,10 c5.52,0,10-4.48,10-10C22,6.48,17.52,2,12,2L12,2z M13,12l0-4h-2l0,4H8l4,4l4-4H13z"/></g></svg></a>
+		</div>
+	</div>
+	<div id="site-content">
+		<h3 id="about-me">über mich.</h3>
+
+		<p>Ich bin ein Kind des Internets. Computertechnologie begleitet mich bereits seit einigen Jahren und auch abseits meiner professionellen Laufbahn hat es mich immer fasziniert Softwareprojekte aus dem Nichts entstehen zu lassen und zu zeigen, was mit Programmcode möglich ist.</p>
+		<blockquote>"Dinge müssen vorallem funktionieren. Das ist mir wichtig."</blockquote>
+		<p>Bei meinen Projekten versuche ich immer einen Weg zu finden ästhetisches mit funktionalem zu verbinden, aber mein Augenmerk liegt darauf Software zu entwickeln, die nützlich ist und Menschen in Ihrer Arbeit oder Ihrem Alltag unterstützt.</p>
+	
+		<h3 id="projects">projekte.</h3>
+
+		<h4 class="project-heading">KlimfAb Bewertungstool</h4>
+		<div id="project-1" class="project-container">
+			<img src="klimfabtool.png" style="max-height: 230px">
+		</div>
+
+		<p class="project-description">Das KlimfAb Bewertungstool ist in Zusammenarbeit mit 15 deutschen Abwasserverbänden als ein gefördertes Projekt des Bundesministeriums für Umwelt, Naturschutz und nukleare Sicherheit entstanden.</p>
+		<p class="project-description">In einem Fragenkatalog von 26 Themen werden Betreiber von Abwasserunternehmen dabei unterstützt, sich auf die Folgen des Klimawandels und seinen Einfluss auf Ihr Unternehmen einstellen zu können und Problemfelder in der Infrastruktur sowie Arbeitsabläufen frühzeitig zu erkennen und Ihnen entgegenzuwirken.</p>
+		<p class="project-description">Das Tool bietet die Möglichkeit innerhalb eines Nutzerkontos mehrere Varianten anzulegen und die Ergebnisse grafisch auszuwerten und miteinander zu vergleichen. Eintragungen in den Fragebögen werden automatisch in einer Online-Datenbank gesichert. Außerdem sind passend zu den Problemfeldern auch Lösungsmöglichkeiten beschrieben, deren Umsetzung sofort beim Lösen der gefundenen Probleme unterstützt.</p>
+		<p class="project-description">Da das Projekt noch nicht abgeschlossen ist, ist ein öffentlicher Zugang der Seite leider noch nicht möglich.</p>
+		<p>PHP - HTML5 - CSS3 - Javascript - jQuery - Ajax</p>
+		<div class="project-button-container">
+			<button class="project-button demo-button"><a href="http://klimfab.de/">demo site</a></button>
+		</div>
+		
+		<h4 class="project-heading">Klimfab Website</h4>
+		<div id="project-2" class="project-container">
+			<img src="klimfabwebsite.png" style="max-height: 230px">
+		</div>
+		<p class="project-description">Die Website zum Bewertungstool bietet den Rahmen zum übergeordneten Ziel, die Projektteilnehmer zu vernetzen, Zugang zum Bewertungstool zu geben als auch über Neuigkeiten zu informieren.</p>
+		<p class="project-description">Die Umsetzung der Website erfolgte mithilfe des CMS Wordpress, sodass das spätere Einpflegen weiterer Inhalte der Projektteilnehmer selbst möglich ist. Klimfab.de bildet damit sozusagen die Kommandozentrale zu den weiteren Unterkategorien des KlimfAb Projekts</p>
+		
+		<p>PHP - HTML5 - CSS3 - Javascript - Wordpress</p>
+		<div class="project-button-container">
+			<button class="project-button demo-button"><a href="http://klimfab.de/">demo site</a></button>
+		</div>
+
+		<h4 class="project-heading">easychords</h4>
+		<div id="project-3" class="project-container">
+			<img src="easychords.png" style="max-height: 234px">
+		</div>
+		<p class="project-description">Easychords ist eine Webapplikation die komplizierte Akkordfolgen umwandelt in für Anfänger leichter zu greifende Akkorde.</p>
+		<p class="project-description">Der Nutzer wählt dazu eine beliebige Akkordfolge durch klicken auf die Buttons aus. Danach wird die Akkordfolge um verschiedene Halbtonschritte auf dem Griffbrett transponiert und mit einer Listen von einfach zu greifenden Akkorden verglichen.</p>
+		<p class="project-description">Das grafische Interface ist mit HTML, CSS und Javascript umgesetzt. Die Berechnungen der Anwendung werden mit Javascript durchgeführt.</p>
+		<p>Javascript - HTML5 - CSS3</p>
+		<div class="project-button-container">
+			<button class="project-button code-button"><a href="https://github.com/BubovaLeon/easychords">&lt/&gt view code</a></button>
+			<button class="project-button demo-button"><a href="http://easychords.io/">demo site</a></button>
+		</div>
+		
+		<h3 id="contact">kontakt.</h3>
+		<p>Für Fragen oder Gespräche stehe Ich gerne zur Verfügung. Ich freue mich darauf Sie kennen zu lernen.</p>
+		<div id="cta-container">
+			<button class="cta-button"><a href="mailto:bubova.leon@gmail.com">Kontakt</a></button>
+		</div>
+	</div>
+</body>
+
+</html>

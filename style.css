@@ -1,0 +1,278 @@
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select,textarea{margin:0}html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}img,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}td:not([align]),th:not([align]){text-align:left}
+
+html{
+	scroll-behavior: smooth;
+}
+
+body{
+	font-family: 'Roboto', sans-serif;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration-line: underline;
+	text-decoration-color: black;
+}
+
+#hero{
+	width: 98vw;
+	height: 100vh;
+	margin: 0 auto;
+	margin-bottom: 5rem;
+}
+
+#welcome{
+	position: absolute;
+	bottom: 15%;
+	left: 10%;
+}
+
+@media only screen and (max-width: 500px) {
+
+	h1{
+		font-size: 26px !important;
+	}
+      }
+
+#navigation{
+	position: absolute;
+	top: 5%;
+	right: 10%;
+	font-size: 22px;
+	text-align: right;
+	transition: top 1.2s;
+}
+
+#logo{
+	position: absolute;
+	top: 5%;
+	left: 10%;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: solid 2px black;
+}
+
+svg{
+	fill: gray; 
+	width: 30px;
+	height: 30px;
+}
+
+#to-bottom{
+	position: absolute;
+	bottom: 4%;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+#navigation ul li {
+	margin-top: 20px;
+}
+
+h1{
+	font-size: 38px;
+	font-family: monospace;
+	overflow: hidden;
+	white-space: nowrap;
+	border-right: 3px solid black;
+	width: 17ch;
+	animation: 
+		typing 2s steps(17),
+		blink-caret .75s 2s step-end infinite;
+}
+
+@keyframes slidein {
+	from {
+	  margin-left: -500px;
+	}
+      
+	to {
+	  margin-left: 0px;
+	}
+      }
+
+/* typing effect */
+@keyframes typing {
+	from { width: 0ch; }
+	10% {width: 0ch;}
+	to { width: 17ch; }
+}
+
+/* typewriter cursor effect */
+@keyframes blink-caret {
+	from, to { border-color: transparent }
+	50% { border-color: black; }
+}
+
+h2{
+	font-size: 22px;
+}
+
+h3{
+	font-size: 32px;
+	margin-bottom: 60px;
+	margin-top: 20px;
+	min-height: 160px;
+	padding-top: 120px;
+
+}
+
+p{
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+#subline{
+	margin-top: 10px;
+}
+
+#site-content{
+	max-width: 750px;
+	margin: 0 auto;
+	padding: 0 5vw;
+}
+
+blockquote {
+	border-left: 3px solid #666;
+	color: #666;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	font-style: italic;
+	line-height: 1.8em;
+	padding: 1em 2em;
+	margin: 4rem 0;
+	position: relative;
+	transition: 0.2s border ease-in-out;
+	z-index: 0;
+      }
+
+#l{
+	font-size: 28px;
+	position: relative;
+	left: 13px;
+	top: 10px;
+
+}
+
+#b{
+	font-size: 28px;
+	position: relative;
+	left: 12px;
+	top: 14px;
+
+}
+
+#extra-l{
+	font-size: 16px;
+	position: relative;
+	left: 8px;
+	top: 5px;
+
+}
+
+#extra-b{
+	font-size: 16px;
+	position: relative;
+	left: 7px;
+	top: 9px;
+
+}
+
+#extra-header{
+	display: none;
+	position: fixed;
+	width: 100vw;
+	height: 50px;
+	padding: 5px;
+	margin: 0 auto;
+	z-index: 10;
+	background-color: white;
+	-webkit-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+	-moz-box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+	box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+}
+
+#extra-logo{
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	border: solid 1px black;
+}
+
+#extra-navigation{
+	margin-top: 5px;
+}
+
+#header-container{
+	margin: 0 5vw;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+
+.moved-navigation{
+	top: 35vh!important;
+}
+
+
+.project-container{
+	border: solid 3px gray;
+	height: 240px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+	-webkit-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+	-moz-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+	box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+}
+
+.project-heading{
+	font-size: 28px;
+	margin-bottom: 20px;
+}
+
+.project-description{
+	text-align: justify;
+}
+
+.project-button-container{
+	margin-bottom: 80px
+}
+
+button{
+	font-family: inherit;
+	font-size: 16px;
+	height: 35px;
+	padding: 0 15px;
+	background-color: white;
+	border-radius: 0px;
+	border: solid 2px gray;
+	-webkit-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+	-moz-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+	box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+}
+
+.cta-button{
+	font-size: 18px;
+	text-transform: uppercase;
+}
+
+
+#cta-container{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10rem;
+	margin-top: 5rem;
+}
