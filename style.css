@@ -82,9 +82,9 @@ h1{
 	overflow: hidden;
 	white-space: nowrap;
 	border-right: 3px solid black;
-	width: 17ch;
+	width: 13ch;
 	animation: 
-		typing 2s steps(17),
+		typing 2s steps(13),
 		blink-caret .75s 2s step-end infinite;
 }
 
@@ -102,7 +102,7 @@ h1{
 @keyframes typing {
 	from { width: 0ch; }
 	10% {width: 0ch;}
-	to { width: 17ch; }
+	to { width: 13ch; }
 }
 
 /* typewriter cursor effect */
