@@ -19,6 +19,10 @@ a:hover{
 	text-decoration-color: black;
 }
 
+button a:hover{
+	text-decoration-color: white;
+}
+
 #hero{
 	width: 98vw;
 	height: 100vh;
@@ -225,7 +229,7 @@ blockquote {
 
 
 .project-container{
-	border: solid 3px gray;
+
 	height: 240px;
 	width: 100%;
 	display: flex;
@@ -233,9 +237,7 @@ blockquote {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
-	-webkit-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
-	-moz-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
-	box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .project-heading{
@@ -254,19 +256,22 @@ blockquote {
 button{
 	font-family: inherit;
 	font-size: 16px;
-	height: 35px;
-	padding: 0 15px;
-	background-color: white;
-	border-radius: 0px;
-	border: solid 2px gray;
-	-webkit-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
-	-moz-box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
-	box-shadow: 3px 3px 5px rgba(57, 63, 72, 0.5);
+	color: white;
+	height: 40px;
+	padding: 5px 15px;
+	background-color: rgb(25, 25, 25);
+	border-radius: 20px;
+	border: none;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .cta-button{
 	font-size: 18px;
+	width: 200px;
+	height: 43px;
 	text-transform: uppercase;
+	padding: 10px 0;
+
 }
 
 
