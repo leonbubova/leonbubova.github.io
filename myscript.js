@@ -1,5 +1,10 @@
 (() => {
 	const D = window.LEON, P = D.projects;
+
+	/* sliding hero navigation (original behaviour) */
+	const nav = document.getElementById('navigation');
+	const moveNav = () => nav.classList.toggle('moved-navigation', scrollY > 1 && innerWidth >= 1160);
+	addEventListener('scroll', moveNav, { passive: true }); addEventListener('resize', moveNav); moveNav();
 	const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
 	const $ = s => document.querySelector(s);
 
@@ -38,7 +43,7 @@
 		DT.wire($('#pdetail'), p);
 		$('#pdetail .pn').addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) show(+b.dataset.go, true); });
 		if (push) { history.replaceState(null, '', '#p/' + p.id); if (innerWidth < 760) $('#pdetail').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-		const li = document.querySelector(`#plist li[data-i="${i}"]`); li && li.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+		if (push) { const li = document.querySelector(`#plist li[data-i="${i}"]`); li && li.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
 	}
 	document.addEventListener('keydown', e => {
 		if (e.target.tagName === 'INPUT' || e.metaKey || e.ctrlKey) return;

@@ -17,12 +17,12 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--text);font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:13px;line-height:1.1;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:clamp(14px,1.25vw,18px);line-height:1.1;-webkit-font-smoothing:antialiased}
 /* kitty: window_padding_width 20 35 0 35, adjust_line_height 110% */
 #kitty{height:100%;display:flex;flex-direction:column;padding:20px 35px 0 35px;overflow:hidden}
 #term{line-height:1.6}
 /* tmux status bar, position top */
-#status{display:flex;overflow:hidden;align-items:center;justify-content:space-between;color:var(--dim);height:22px;flex:none;user-select:none;white-space:pre}
+#status{display:flex;overflow:hidden;align-items:center;justify-content:space-between;color:var(--dim);height:1.8em;flex:none;user-select:none;white-space:pre}
 #status .left{display:flex}
 #status .sess{color:var(--c15);padding:0 20px 0 4px}
 #status .win{padding:0 8px}
@@ -53,7 +53,7 @@ a{color:var(--c6);text-decoration:none}a:hover{text-decoration:underline}
 /* nvim-ish pager */
 .box{border:1px solid var(--border);padding:8px 12px;margin:6px 0;color:var(--c7)}
 table.ls{border-collapse:collapse}table.ls td{padding:0 3ch 0 0}
-@media (max-width:600px){#kitty{padding:10px 12px 0 12px}body{font-size:12px}}
+@media (max-width:600px){#kitty{padding:10px 12px 0 12px}body{font-size:13px}}
 </style>
 </head>
 <body>
