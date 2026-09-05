@@ -1,129 +1,75 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>Leon Bubova - Developer</title>
-	<meta name="author" content="">
-	<meta name="description" content="A Personal Portfolio Website to showcase my projects and experiences">
+	<meta name="author" content="Leon Bubova">
+	<meta name="description" content="Leon Bubova, software engineer in Köln. Payments backends at Klarna and Ivy, now building products with AI in the loop: voice dictation, agents, bots, infra.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.png">
-
 	<link href="style.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="myscript.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
-	<!--<div id="extra-header">
-		<div id="header-container">
-			<div id="extra-logo"><span id="extra-l">L</span><span id="extra-b">B</span></div>
-			<div id="extra-navigation">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black;"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-			</div>
-		</div>
-	</div>-->
 	<div id="hero">
 		<div id="logo"><span id="l">L</span><span id="b">B</span></div>
-		<div id="welcome">
-			<h1 id="heading">hi, i'm leon.</h1>
-			<h2 id="subline">software developer with focus on web technology</h2>
-		</div>
 		<div id="navigation">
 			<ul>
 				<li><a href="#about-me">about me</a></li>
+				<li><a href="#experience">experience</a></li>
 				<li><a href="#projects">projects</a></li>
 				<li><a href="#contact">contact</a></li>
 			</ul>
 		</div>
+		<div id="welcome">
+			<h1 id="heading">hi, i'm leon.</h1>
+			<h2 id="subline">software engineer. payments backends at scale, now building products with AI in the loop.</h2>
+		</div>
 		<div id="to-bottom">
-			<a href="#about-me"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24"/><path d="M12,4c4.41,0,8,3.59,8,8s-3.59,8-8,8s-8-3.59-8-8S7.59,4,12,4 M12,2C6.48,2,2,6.48,2,12c0,5.52,4.48,10,10,10 c5.52,0,10-4.48,10-10C22,6.48,17.52,2,12,2L12,2z M13,12l0-4h-2l0,4H8l4,4l4-4H13z"/></g></svg></a>
+			<a href="#about-me" aria-label="scroll down"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,4c4.41,0,8,3.59,8,8s-3.59,8-8,8s-8-3.59-8-8S7.59,4,12,4 M12,2C6.48,2,2,6.48,2,12c0,5.52,4.48,10,10,10 c5.52,0,10-4.48,10-10C22,6.48,17.52,2,12,2L12,2z M13,12l0-4h-2l0,4H8l4,4l4-4H13z"/></svg></a>
 		</div>
 	</div>
+
 	<div id="site-content">
-		<h3 id="about-me">about me.</h3>
+		<section id="about-me">
+			<h3>about me.</h3>
+			<p>I build software end to end and I like it best when real people use it the same week. For three years I ran payment microservices inside the Klarna App, on-call included. Then subscriptions on open-banking rails at Ivy. Since 2025 I build my own things: a voice dictation app with its own German speech model, a Kubernetes break/fix wargame, a Telegram bot that found me a flat in Köln, and the coding agents I use to build all of it.</p>
+			<blockquote>"Done is better than perfect. Then verify it."</blockquote>
+			<p>I keep the stack small: TypeScript everywhere it fits, Kotlin where the phone needs it, Python for models, shell for servers. Tests block deploys, docs are written while building, and every infra change is rehearsed before it touches production. Claude Code is a daily pair, and I build my own harnesses to understand what it does.</p>
+			<p class="facts"><span>Köln</span><span>German · English</span><span>freelance, day-rate or project</span><span>remote or on site</span></p>
+		</section>
 
-		
-		<p>I love to build things for the web. Coming up with implementations for ideas and little projects is something that I do alot in my free time. I'm always on the lookout for a cool sideproject that I can turn into code. Most of the time the planning and designing the architecture is the biggest part of coming up with ideas, because I like to think stuff through before building, but sometimes you just have to start building and get going.</p>
-		<blockquote>"Done is better than perfect!"</blockquote>
-		<p>To make it easy for me to start I try to keep my tech stack compact and tend to focus on fewer technologies that I can learn to their fullest potential. For my most recent projects that has been Symfony/Laravel for backend side of things, because I use this stack at my full-time position right now and ReactJS on the frontend coupled with an SQL database. I've also started to get to know CI tools like Github Actions/Gitlab CI and Circle CI</p>
-	
-		<h3 id="projects">projects.</h3>
+		<section id="experience">
+			<h3>experience.</h3>
+			<ol id="xp"></ol>
+		</section>
 
-		<h4 class="project-heading">Paper Hands</h4>
-		<div id="project-0" class="project-container">
-			<img src="paper_hands.png" style="max-height: 230px">
-		</div>
+		<section id="projects">
+			<h3>projects.</h3>
+			<p class="hint">Pick one on the left, or use <kbd>j</kbd> <kbd>k</kbd> and the filters. Each project has a small live demo of what it actually does.</p>
+			<div id="filters"></div>
+			<div id="explorer">
+				<ol id="plist" aria-label="projects"></ol>
+				<article id="pdetail" aria-live="polite"></article>
+			</div>
+		</section>
 
-		<p class="project-description">Paper Hands is a paper trade web application, that simulates buying stocks. You can register, login and manage your portfolio by buying and sell stocks.</p>
-		<p class="project-description">It integrates with a third-party API (<a href="https://financialmodelingprep.com/">financialmodelingprep.com</a>) to get the current stockprices at the moment of every buy/sell operation in the backend and automatically updates your Account Balance accordingly. It also features API endpoints itself to buy/sell.</p>
-		<p class="project-description">The application was built as a proof-of-concept and could be expanded by a graphical representation of the current stock prices, functioning authentication for the API (right now only frontend authentication is implemented), and definitely a whole lot of other features, but I was satisfied with it as a weekend project.</p>
-		<p>PHP - Symfony - Twig - CSS - SQL</p>
-		<div class="project-button-container">
-			<button class="project-button code-button"><a href="https://github.com/leonbubova/paper-hands">&lt/&gt code</a></button>
-		</div>
-
-		<h4 class="project-heading">Eveeon Landingpage and Marketplace (WIP)</h4>
-		<div id="project-1" class="project-container">
-			<img src="eveeon.png" style="max-height: 230px">
-		</div>
-
-		<p class="project-description">This project I did for a small startup, which is still in active development. Its intended as a SaaS marketplace web application. I did the design in Figma and started building out the frontend with React and TailwindCSS.</p>
-		<p class="project-description">Right now only the landingpage is (quite) finished yet, but I started designing the UI for the marketplace functionality as well as already planned the architecture on how the frontend is going to communicate with a Laravel backend, separating those two for better maintainability and trying to incorporate best practices into my architecture design.</p>
-		<p class="project-description">The website is hosted via DigitalOcean and I started incorporating testing into it (although there is not much to test yet) and got a CI/CD process going that kicks off the test suite, formatting, linting and the build process via pre-commit hooks and Husky, but also on the branches itself via CircleCI.</p>
-		<p>React - TailwindCSS - HTML - CSS - CircleCI - Figma</p>
-		<div class="project-button-container">
-			<button class="project-button code-button"><a href="https://github.com/leonbubova/mrktplc-frontend">&lt/&gt code</a></button>
-			<button class="project-button demo-button"><a href="https://mrktplc-frontend-juw6f.ondigitalocean.app/">demo</a></button>
-		</div>
-
-		<h4 class="project-heading">KlimfAb Consultingtool</h4>
-		<div id="project-2" class="project-container">
-			<img src="klimfabtool.png" style="max-height: 230px">
-		</div>
-
-		<p class="project-description">The KlimfAb Consultingtool was made in cooperation with 15 german sewage associations as a funded government project. </p>
-		<p class="project-description">In a questionnaire with 26 different topics, maintainers of sewage associations are being assisted in preparing for the various difficulties that climate change is bringing for the environment, but also for companies that are maintaining the infrastructure of waterworks and sewages.</p>
-		<p class="project-description">The tool offers possibility to save and evaluate the results and compare different variations of the answered qestions. Answers are automatically saved in a database. Also the tool offers a knowledge base that was created with the help of domain specialists, that already use this tool to evaluate their companies infrastructure and situation.</p>
-		<p class="project-description">Because the project is still in testing phase with its early adopters, an open access to the site is unfortunately not possible yet.</p>
-		<p>PHP - HTML5 - CSS3 - Javascript - jQuery - Ajax</p>
-		<div class="project-button-container">
-			<button class="project-button demo-button"><a href="http://klimfab.de/">demo</a></button>
-		</div>
-		
-		<h4 class="project-heading">KlimfAb Website</h4>
-		<div id="project-3" class="project-container">
-			<img src="klimfabwebsite.png" style="max-height: 230px">
-		</div>
-		<p class="project-description">The landingpage for Klimfab is a place that not only embeds the tool into a website, but also is a possibility to connect the network members, that actively took part in creating the knowledge base, as well as notify them with news regarding the project.</p>
-		
-		<p>PHP - HTML5 - CSS3 - Javascript - Wordpress</p>
-		<div class="project-button-container">
-			<button class="project-button demo-button"><a href="http://klimfab.de/">demo</a></button>
-		</div>
-
-		<h4 class="project-heading">easychords</h4>
-		<div id="project-4" class="project-container">
-			<img src="easychords.png" style="max-height: 234px">
-		</div>
-		<p class="project-description">Easychords is a webapp that transforms complicated chord patterns into easy-to-play ones, that are suited for beginners.</p>
-		<p class="project-description">The user chooses a chord patter via clicking on the buttons. After that, the pattern is being transposed by various half-tone steps on the fretboard and is being to a list of easy to play chords.</p>
-		<p class="project-description">The UI is built with plain HTML, CSS and JS. The calculations of the app are being done with JS.</p>
-		<p>Javascript - HTML5 - CSS3</p>
-		<div class="project-button-container">
-			<button class="project-button code-button"><a href="https://github.com/leonbubova/easychords">&lt/&gt code</a></button>
-		</div>
-		
-		<p>There are more projects, personal and professional ones, that I would love to talk about with you if you are interested in some more recent ones. Just contact me and I would be happy to talk.</p>
-		
-		<h3 id="contact">contact.</h3>
-		<p>Let me know if you have any questions. I would love to hear from you.</p>
-		<div id="cta-container">
-			<button class="cta-button"><a href="mailto:bubova.leon@gmail.com">Contact</a></button>
-		</div>
+		<section id="contact">
+			<h3>contact.</h3>
+			<p>Got something that should exist? Tell me about it. I reply within a day.</p>
+			<div id="cta-container">
+				<a class="cta-button" href="mailto:bubova.leon@gmail.com">Contact</a>
+				<a class="cta-link" href="https://github.com/leonbubova">GitHub</a>
+				<a class="cta-link" href="https://www.linkedin.com/in/leonbubova">LinkedIn</a>
+				<a class="cta-link" href="files/leon_bubova_cv.pdf">CV (pdf)</a>
+			</div>
+			<p class="versions">This page in other styles: <a href="benchcad/">technical</a> · <a href="anime/">dark &amp; animated</a> · <a href="terminal/">terminal</a></p>
+		</section>
 	</div>
-</body>
 
+	<script src="projects.js"></script>
+	<script src="detail.js"></script>
+	<script src="myscript.js"></script>
+</body>
 </html>

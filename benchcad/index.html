@@ -97,6 +97,52 @@ nav .ic{display:inline-flex;vertical-align:middle}
 .part.wide h3{font-size:22px}
 .part.wide p{font-size:15px}
 
+/* filters + spec sheet */
+.pfilters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pfilters button{font-family:var(--mono);font-size:11px;background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:4px 9px;color:var(--ink2);cursor:pointer}
+.pfilters button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.part{cursor:pointer}
+.part.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.part.hide{display:none}
+.part .more{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:auto}
+.sheet{margin-top:24px;border:1px solid var(--ink);border-radius:8px;background:var(--bg2);padding:28px;position:relative;scroll-margin-top:72px}
+.sheet:before{content:"SPEC SHEET";position:absolute;top:-9px;left:20px;background:var(--bg2);padding:0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink3)}
+.sheet .head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:baseline;margin-bottom:6px}
+.sheet h3{font-size:26px}
+.sheet .meta{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.sheet .meta b{color:var(--ok);font-weight:500}
+.sheet .tagline{font-size:17px;color:var(--ink2);max-width:62ch;margin:0 0 16px}
+.sheet h5{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:22px 0 6px}
+.sheet p{margin:0 0 10px;font-size:15px;max-width:72ch}
+.sheet ul{margin:0;padding-left:0;list-style:none}
+.sheet li{position:relative;padding:4px 0 4px 18px;font-size:14px;color:var(--ink2);max-width:72ch}
+.sheet li:before{content:"→";position:absolute;left:0;color:var(--ink3);font-family:var(--mono)}
+.sheet .stack{font-family:var(--mono);font-size:12px;color:var(--ink2)}
+.sheet .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.sheet .links a{font-size:13px;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;padding:6px 12px}
+.sheet .links a.priv{background:transparent;color:var(--ink2);border-color:var(--line)}
+.sheet .links a:hover{text-decoration:none;opacity:.85}
+.sheet .pn{display:flex;justify-content:space-between;margin-top:22px;padding-top:12px;border-top:1px solid var(--line2);font-family:var(--mono);font-size:11px}
+.sheet .pn button,.sheet .close{all:unset;cursor:pointer;color:var(--ink2)}
+.sheet .close{position:absolute;top:12px;right:16px;font-family:var(--mono);font-size:11px}
+.demo{border:1px solid var(--line);border-radius:6px;background:var(--bg);margin:14px 0 6px;overflow:hidden}
+.demo .bar{font-family:var(--mono);font-size:10px;color:var(--ink3);padding:6px 12px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between}
+.demo .bar button{all:unset;cursor:pointer}
+.demo pre{font-family:var(--mono);font-size:12px;line-height:1.65;padding:12px 14px;white-space:pre-wrap;word-break:break-word;color:var(--ink2);min-height:110px;margin:0}
+.demo pre .p{color:var(--ink3)}.demo pre .ok{color:var(--ok)}.demo pre .in{color:var(--ink)}
+.demo pre .cur{display:inline-block;width:7px;height:13px;background:var(--ink);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.demo .chart{padding:12px 14px 6px}.demo .chart svg{width:100%;height:auto;display:block}
+.demo .bar-rect{fill:var(--accent)}.demo .bar-k{fill:var(--ink3)}.demo .bar-v{fill:var(--ink2)}
+.demo .chart .note{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:4px}
+.demo .card{padding:14px;font-size:14px}.demo .card .from{font-weight:600;font-size:13px;margin-bottom:6px}
+.demo .card .msg{background:var(--bg2);border:1px solid var(--line);border-radius:10px 10px 10px 2px;padding:10px 12px;white-space:pre-wrap;font-size:13px;max-width:52ch}
+.demo .card .btns{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.demo .card .btns span{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-radius:6px;padding:4px 9px;background:var(--bg2);cursor:pointer}
+.demo .card .after{margin-top:10px;opacity:0;transition:opacity .4s}.demo .card .after.show{opacity:1}
+.demo .plain{padding:14px;font-family:var(--mono);font-size:12px;color:var(--ink2)}
+.demo .img{display:flex;justify-content:center;background:#fff;padding:12px}.demo .img img{max-height:240px}
+
 /* timeline */
 .tl-list{border-left:1px solid var(--line);margin-left:6px;padding-left:24px}
 .tl-item{position:relative;padding-bottom:24px}
@@ -129,7 +175,7 @@ nav .ic{display:inline-flex;vertical-align:middle}
 .idea .tag{font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-bg);padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:1px}
 
 /* stats footer */
-.stats{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:8px;background:var(--bg2);overflow:hidden}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line);border-radius:8px;background:var(--bg2);overflow:hidden}
 .stat{padding:18px 20px;border-left:1px solid var(--line2)}
 .stat:first-child{border-left:0}
 .stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.02em}
@@ -180,8 +226,8 @@ footer a{color:var(--ink2)}
     <div class="grid">
       <div>
         <div class="label" style="margin-bottom:18px">Leon Bubova · Software developer · Cologne</div>
-        <h1>The entrance to shipping<br><span>with AI in the loop.</span></h1>
-        <p class="lead">I build small, useful software end to end: a voice dictation app with its own fine-tuned speech model, a break/fix wargame for Kubernetes, Telegram bots that hunt apartments, and the bare-metal infra all of it runs on.</p>
+        <h1>Payments backends at scale.<br><span>Now products with AI in the loop.</span></h1>
+        <p class="lead">Three years running tokenized-payment services inside the Klarna App (500+ merchants, 40M+ users, on-call included), then subscriptions at Ivy. Since 2025: a voice dictation app with its own German speech model, a Kubernetes break/fix wargame, bots, agents, and the bare-metal infra it all runs on.</p>
         <div class="ctas">
           <a class="btn primary" href="#projects">See the parts <span class="mono">↓</span></a>
           <a class="btn" href="https://github.com/leonbubova">GitHub <span class="mono">44 repos</span></a>
@@ -255,8 +301,8 @@ footer a{color:var(--ink2)}
       </div>
       <div class="card">
         <span class="label">03 · Grounded in</span>
-        <h3>Cologne, and real people using the thing</h3>
-        <p>Subrosa is used daily by early-access testers. Hausbert found apartments in Köln. The Gradient is a local network for creatives who use AI as material.</p>
+        <h3>Production, then side projects</h3>
+        <p>Weekly on-call for payment services at Klarna taught me what abstractions cost at 3 a.m. Subrosa is used daily by early-access testers, Hausbert found the flat I live in, Libertas runs a client's inbox.</p>
         <ul><li>Available for freelance work, day-rate or project</li><li>German / English, remote or Köln</li></ul>
       </div>
     </div>
@@ -317,144 +363,10 @@ footer a{color:var(--ink2)}
   <div class="wrap">
     <div class="label">Part gallery</div>
     <h2>Projects</h2>
-    <p class="sub">Selected from 44 public repos. Ordered by how much I'd want you to click on them.</p>
-    <div class="parts">
-
-      <article class="part wide">
-        <div class="fig">
-          <svg viewBox="0 0 260 180"><rect x="30" y="30" width="200" height="120" rx="10"/><rect x="45" y="45" width="170" height="70" rx="4" stroke-dasharray="3 3"/><rect x="115" y="60" width="30" height="45" rx="15"/><line x1="130" y1="105" x2="130" y2="118"/><path d="M105 85a25 25 0 0 0 50 0"/><line x1="60" y1="135" x2="200" y2="135"/><line x1="60" y1="140" x2="160" y2="140"/><text x="90" y="170" font-size="9" fill="#8a8a86" stroke="none" font-family="JetBrains Mono">shush · v0.8.0</text></svg>
-        </div>
-        <div class="body">
-          <div class="id"><span>PROJ-001 · 2025–2026</span><span class="st">● IN USE</span></div>
-          <h3><a href="https://subrosa-voice.de">Shush / Subrosa — voice dictation, everywhere</a></h3>
-          <p>Double-tap volume-down on Android or hold a hotkey on desktop, speak, and the text lands in whatever app has focus. Android app in Kotlin, desktop app in Electron, transcription via Voxtral on Supabase Edge Functions with optional Haiku 4.5 cleanup. Plus a fine-tuned <b>Moonshine Tiny (27M params) for German</b> so dictation can run fully on-device. Early-access users get 1,000 words per 3 hours, tracked and rate-limited.</p>
-          <div class="stack">kotlin · electron · react · typescript · supabase · voxtral · moonshine · kaggle</div>
-          <div class="links"><a href="https://subrosa-voice.de">subrosa-voice.de</a><a href="https://github.com/leonbubova/shush-app">android</a><a href="https://github.com/leonbubova/shush-app-electron">desktop</a><a href="https://github.com/leonbubova/shush-model-training">model training</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><path d="M20 15h80v50H20z"/><path d="M20 27h80"/><circle cx="27" cy="21" r="2"/><circle cx="35" cy="21" r="2"/><path d="M30 40l8 6-8 6M45 52h20"/><path d="M85 38l-12 12M73 38l12 12" stroke="#c2410c"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-002 · 2026</span><span class="st">● LIVE</span></div>
-          <h3><a href="https://github.com/leonbubova/kaputt">kaputt</a></h3>
-          <p>A break/fix wargame. Each level spins up a real k3d/Docker environment, sabotages one thing, and hands you the incident like a teammate would. You fix it with real <code>kubectl</code>; a checker proves the system works again. CI, hints, scoreboard.</p>
-          <div class="stack">shell · k3d · kubectl · helm · docker · psql</div>
-          <div class="links"><a href="https://leonbubova.github.io/kaputt/">site</a><a href="https://github.com/leonbubova/kaputt">code</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><path d="M25 65V35l35-22 35 22v30z"/><path d="M50 65V48h20v17"/><circle cx="95" cy="20" r="9"/><path d="M92 20l2 2 4-4"/><path d="M15 25l-6-4M15 30h-8"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-003 · 2025</span><span class="st">● SHIPPED</span></div>
-          <h3><a href="https://github.com/leonbubova/hausbert">Hausbert</a></h3>
-          <p>Automated apartment hunting for Köln. Scrapes WG-Gesucht, Kleinanzeigen and Immowelt once globally, scores listings per user profile, pushes photo cards to a shared Telegram bot, and drafts applications with the Claude API. A second bot handles monitoring and scraper health.</p>
-          <div class="stack">typescript · telegram · claude api · scraping</div>
-          <div class="links"><a href="https://github.com/leonbubova/hausbert">code</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><rect x="15" y="20" width="40" height="45" rx="4"/><circle cx="35" cy="42" r="8"/><path d="M62 40h14M76 40l-4-3M76 40l-4 3"/><rect x="82" y="15" width="24" height="50" rx="5"/><path d="M88 25h12M88 32h12M88 39h8"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-004 · 2025</span><span class="st">● HACKATHON</span></div>
-          <h3><a href="https://github.com/leonbubova/kummerkasten">Kummerkasten</a></h3>
-          <p>A physical push-to-talk button (ESP32-S3) for bakery staff. Voice goes over BLE to a React Native app, gets transcribed with Voxtral, analysed by an LLM, and if it's a sick note the app organises cover in the team. Built at the Bäko hackathon.</p>
-          <div class="stack">esp32 · ble · react native · voxtral · telegram</div>
-          <div class="links"><a href="https://github.com/leonbubova/kummerkasten">code</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><rect x="15" y="15" width="90" height="50" rx="4"/><path d="M25 30l6 5-6 5M36 40h14"/><path d="M60 25v30M70 30h25M70 40h25M70 50h18" stroke-dasharray="2 2"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-005 · 2025–2026</span><span class="st wip">● IN PROGRESS</span></div>
-          <h3><a href="https://github.com/leonbubova/salieri">Salieri + harness</a></h3>
-          <p>My own coding agents. <b>harness</b> is ~450 lines, no build step, Node strips the TypeScript itself, API key read once from 1Password. <b>Salieri</b> is the grown-up version: a daemon, a terminal client, skills, and a live-test suite in a pnpm/turbo monorepo.</p>
-          <div class="stack">typescript · node · pnpm · turbo · vitest · claude api</div>
-          <div class="links"><a href="https://github.com/leonbubova/salieri">salieri</a><a href="https://github.com/leonbubova/leonbubova">harness (soon)</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><rect x="30" y="12" width="60" height="56" rx="3"/><path d="M40 26h40M40 36h40M40 46h28"/><circle cx="82" cy="58" r="5"/><path d="M14 40h10M96 40h10"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-006 · 2026</span><span class="st">● LIVE</span></div>
-          <h3><a href="https://leonbubova.github.io/research-paper-reader/">Research Paper Reader</a></h3>
-          <p>A clean dark reader for Harvard CS197 (AI Research Experiences). Markdown rendered at runtime so a human gets themes, TOC and sentence bookmarks, and an agent can fetch the raw .md as a context pack. No build, no framework.</p>
-          <div class="stack">html · css · js · markdown</div>
-          <div class="links"><a href="https://leonbubova.github.io/research-paper-reader/">site</a><a href="https://github.com/leonbubova/research-paper-reader">code</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><rect x="20" y="20" width="80" height="40" rx="3"/><path d="M20 60l40-25 40 25" /><path d="M20 20l40 25 40-25"/><circle cx="100" cy="20" r="6" fill="#f7f7f5"/><path d="M98 20l1.5 1.5 3-3"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-007 · 2026</span><span class="st">● CLIENT</span></div>
-          <h3><a href="https://github.com/leonbubova/libertas">Libertas — mail triage</a></h3>
-          <p>Inbox triage automation for a client, run as a documented operation: system description, risk register, handover doc and git hooks live next to the code. The kind of project where the docs are part of the deliverable.</p>
-          <div class="stack">shell · n8n · llm · ops docs</div>
-          <div class="links"><a href="https://github.com/leonbubova/libertas">repo</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><rect x="18" y="18" width="84" height="44" rx="4"/><path d="M30 62v6M90 62v6M18 40h84"/><circle cx="60" cy="40" r="10"/><path d="M60 30v-8M60 50v8" stroke-dasharray="2 2"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-008 · 2026</span><span class="st">● PROVEN</span></div>
-          <h3><a href="https://github.com/leonbubova/infra">infra + dotfiles</a></h3>
-          <p>Bare-metal Hetzner dev server: tailnet-only SSH, nftables lockdown with a two-stage commit and deadman timer, btrfs + snapper, restic backups with a verified restore drill (RTO 6 s). Rehearsed on a cloud VM first, which found 12 real bugs.</p>
-          <div class="stack">shell · tailscale · nftables · btrfs · restic</div>
-          <div class="links"><a href="https://github.com/leonbubova/infra">infra</a><a href="https://github.com/leonbubova/dotfiles">dotfiles</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><rect x="25" y="15" width="30" height="45" rx="3"/><rect x="65" y="20" width="30" height="45" rx="3" transform="rotate(8 80 42)"/><path d="M33 25h14M33 32h14M33 39h8"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-009 · 2025–2026</span><span class="st wip">● ENGINE DONE</span></div>
-          <h3><a href="https://github.com/leonbubova/dueling-book-killer">dueling-book-killer</a></h3>
-          <p>A Yu-Gi-Oh! duel simulator built the right way round: a pure, event-sourced JSON state machine first, interfaces later. Today a terminal REPL for goldfishing and combo training; a Vite + React frontend will consume the same engine.</p>
-          <div class="stack">typescript · event sourcing · vitest · docker</div>
-          <div class="links"><a href="https://github.com/leonbubova/dueling-book-killer">code</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><circle cx="40" cy="40" r="18"/><circle cx="80" cy="40" r="18"/><path d="M60 22v36" stroke-dasharray="2 2"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-010 · 2026</span><span class="st">● COMMUNITY</span></div>
-          <h3><a href="https://github.com/leonbubova/the-gradient">The Gradient</a></h3>
-          <p>A WhatsApp channel and growing network for creatives in Köln who treat AI as material, not a trend. Zero-dependency Node server, static front, Fly.io in Frankfurt with auto-suspend.</p>
-          <div class="stack">node:http · html · fly.io</div>
-          <div class="links"><a href="https://github.com/leonbubova/the-gradient">code</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><path d="M20 60c15-30 30-40 40-40s25 10 40 40"/><rect x="30" y="22" width="20" height="12" rx="2"/><rect x="70" y="22" width="20" height="12" rx="2"/><path d="M60 20v40" stroke-dasharray="2 2"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-011 · 2026</span><span class="st">● SHIPPED</span></div>
-          <h3><a href="https://github.com/leonbubova/soft-landing">soft-landing</a></h3>
-          <p>One-page site for a counselling practice. Plain HTML/CSS/JS with Vite, but the interesting part is the harness: Playwright tests for quiz paths, forms and the mobile menu block the deploy, and a screenshot run asserts layout at 10 viewport sizes.</p>
-          <div class="stack">vite · playwright · github pages</div>
-          <div class="links"><a href="https://github.com/leonbubova/soft-landing">code</a></div>
-        </div>
-      </article>
-
-      <article class="part">
-        <div class="fig"><svg viewBox="0 0 120 80"><rect x="20" y="15" width="80" height="50" rx="3"/><path d="M30 30h30M30 40h50M30 50h20"/><path d="M80 25l12 12M92 25L80 37" stroke="#1a7f4b"/></svg></div>
-        <div class="body">
-          <div class="id"><span>PROJ-012 · 2026</span><span class="st wip">● RESEARCH</span></div>
-          <h3><a href="#">LLM as recruiter support</a></h3>
-          <p>Can an LLM rank CVs as well as a recruiter, and how would you prove it? A 5-step scoring pipeline (knockout → relevance → career logic → outliers → ranking), 30 deliberately imperfect synthetic CVs, a bias double-test, and GDPR-first anonymisation. All in Markdown, so the medium is the documentation.</p>
-          <div class="stack">claude code · markdown · eval design</div>
-          <div class="links"><a href="mailto:bubova.leon@gmail.com?subject=CV%20screening%20case%20study">ask for the write-up</a></div>
-        </div>
-      </article>
-
-    </div>
+    <p class="sub">Click a part for its spec sheet: what it is, how it works, the hard part, a live demo. Filter by material.</p>
+    <div class="pfilters" id="pfilters"></div>
+    <div class="parts" id="parts"></div>
+    <article class="sheet" id="sheet" hidden></article>
   </div>
 </section>
 
@@ -463,14 +375,8 @@ footer a{color:var(--ink2)}
   <div class="wrap">
     <div class="label">Revision history</div>
     <h2>Timeline</h2>
-    <p class="sub">The short version. The long version is a PDF nobody reads.</p>
-    <div class="tl-list">
-      <div class="tl-item"><div class="when">2025 – now</div><b>Independent developer, Köln</b><span>Own products (Subrosa), client automation (mail triage, websites), agent tooling. Building in public on LinkedIn.</span></div>
-      <div class="tl-item"><div class="when">2023 – 2024</div><b>Frontend / fullstack, TypeScript stack</b><span>React, React Native, Node, Cypress, Jest, Storybook at the day job. Side: formate, two-pizzas, algo-trader, a GitHub-style habit tracker.</span></div>
-      <div class="tl-item"><div class="when">2020 – 2021</div><b>Fullstack developer, os-cillation GmbH</b><span>PHP (Symfony/Laravel), React, MySQL, CI. Weekend project: paper-hands, a paper-trading app, built twice.</span></div>
-      <div class="tl-item"><div class="when">2018 – 2020</div><b>Developer intern, econius GmbH</b><span>First production code. WordPress-based product catalogue for Klimfab.</span></div>
-      <div class="tl-item"><div class="when">2014 –</div><b>Computer Science, Universität Siegen</b><span>Where the fear of pointers was born.</span></div>
-    </div>
+    <p class="sub">From working student to on-call owner to my own products.</p>
+    <div class="tl-list" id="tl"></div>
   </div>
 </section>
 
@@ -524,6 +430,7 @@ footer a{color:var(--ink2)}
 <section id="contact">
   <div class="wrap">
     <div class="stats">
+      <div class="stat"><b>500+</b><span>merchants served</span></div>
       <div class="stat"><b>44</b><span>public repos</span></div>
       <div class="stat"><b>6+</b><span>years shipping</span></div>
       <div class="stat"><b>27M</b><span>params fine-tuned</span></div>
@@ -548,7 +455,48 @@ footer a{color:var(--ink2)}
   </div>
 </footer>
 
+<script src="../projects.js"></script>
+<script src="../detail.js"></script>
 <script>
+window.LEON_BASE='../';
+(()=>{
+  const D=window.LEON,P=D.projects,DT=window.LEON_DETAIL,esc=DT.esc;
+  const ICON={shush:'<rect x="30" y="18" width="60" height="45" rx="6"/><rect x="52" y="26" width="16" height="24" rx="8"/><path d="M60 50v8M46 40a14 14 0 0 0 28 0"/>',
+   'moonshine-de':'<path d="M15 55c10 0 10-30 20-30s10 30 20 30 10-30 20-30 10 30 20 30" /><path d="M15 25h90" stroke-dasharray="2 2"/>',
+   kaputt:'<path d="M20 15h80v50H20z"/><path d="M20 27h80"/><path d="M30 40l8 6-8 6M45 52h20"/><path d="M85 38l-12 12M73 38l12 12" stroke="#c2410c"/>',
+   hausbert:'<path d="M25 65V35l35-22 35 22v30z"/><path d="M50 65V48h20v17"/><circle cx="95" cy="20" r="9"/><path d="M92 20l2 2 4-4"/>',
+   kummerkasten:'<rect x="15" y="20" width="40" height="45" rx="4"/><circle cx="35" cy="42" r="8"/><path d="M62 40h14M76 40l-4-3M76 40l-4 3"/><rect x="82" y="15" width="24" height="50" rx="5"/>',
+   salieri:'<rect x="15" y="15" width="90" height="50" rx="4"/><path d="M25 30l6 5-6 5M36 40h14"/><path d="M60 25v30M70 30h25M70 40h25M70 50h18" stroke-dasharray="2 2"/>',
+   infra:'<rect x="18" y="18" width="84" height="44" rx="4"/><path d="M30 62v6M90 62v6M18 40h84"/><circle cx="60" cy="40" r="10"/>',
+   libertas:'<rect x="20" y="20" width="80" height="40" rx="3"/><path d="M20 20l40 25 40-25"/><circle cx="100" cy="20" r="6" fill="#f7f7f5"/>',
+   'research-paper-reader':'<rect x="30" y="12" width="60" height="56" rx="3"/><path d="M40 26h40M40 36h40M40 46h28"/><circle cx="82" cy="58" r="5"/>',
+   'dueling-book-killer':'<rect x="25" y="15" width="30" height="45" rx="3"/><rect x="65" y="20" width="30" height="45" rx="3" transform="rotate(8 80 42)"/>',
+   'cv-screening':'<rect x="20" y="15" width="80" height="50" rx="3"/><path d="M30 30h30M30 40h50M30 50h20"/><path d="M80 25l12 12M92 25L80 37" stroke="#1a7f4b"/>',
+   'the-gradient':'<circle cx="40" cy="40" r="18"/><circle cx="80" cy="40" r="18"/>',
+   'soft-landing':'<path d="M20 60c15-30 30-40 40-40s25 10 40 40"/><rect x="30" y="22" width="20" height="12" rx="2"/><rect x="70" y="22" width="20" height="12" rx="2"/>',
+   klarna:'<rect x="15" y="25" width="90" height="35" rx="4"/><path d="M15 35h90"/><rect x="25" y="45" width="20" height="6"/>',
+   ivy:'<path d="M20 60c20 0 20-40 40-40s20 40 40 40"/><circle cx="60" cy="20" r="4"/>',
+   default:'<rect x="25" y="20" width="70" height="40" rx="3"/><path d="M35 32h50M35 42h30"/>'};
+  const order=['all','ai','mobile','bots','infra','web','work','archive'];
+  document.getElementById('pfilters').innerHTML=order.map(t=>`<button data-t="${t}" class="${t==='all'?'on':''}">${t==='all'?'all materials':esc(D.tags[t])}</button>`).join('');
+  const parts=document.getElementById('parts'),sheet=document.getElementById('sheet');
+  parts.innerHTML=P.map((p,i)=>`<article class="part" data-i="${i}">
+      <div class="fig"><svg viewBox="0 0 120 80">${ICON[p.id]||ICON.default}</svg></div>
+      <div class="body"><div class="id"><span>PROJ-${String(i+1).padStart(3,'0')} · ${esc(p.year)}</span><span class="st ${/progress|iterat|research|engine/.test(p.status)?'wip':''}">● ${esc(p.status.toUpperCase())}</span></div>
+      <h3>${esc(p.title)}</h3><p>${esc(p.tagline)}</p><div class="stack">${esc(p.stack)}</div><div class="more">open spec sheet →</div></div></article>`).join('');
+  let cur=-1;
+  const vis=()=>[...parts.children].filter(c=>!c.classList.contains('hide')).map(c=>+c.dataset.i);
+  function open(i,scroll){cur=i;const p=P[i];[...parts.children].forEach(c=>c.classList.toggle('on',+c.dataset.i===i));
+    const v=vis(),pos=v.indexOf(i),prev=v[(pos-1+v.length)%v.length],next=v[(pos+1)%v.length];
+    sheet.hidden=false;sheet.innerHTML=`<button class="close" type="button" data-close>close ×</button><div class="head"><h3>${esc(p.title)}</h3><span class="meta">PROJ-${String(i+1).padStart(3,'0')} · ${esc(p.year)} · <b>${esc(p.status)}</b></span></div>${DT.body(p)}<div class="pn"><button type="button" data-go="${prev}">← ${esc(P[prev].title)}</button><button type="button" data-go="${next}">${esc(P[next].title)} →</button></div>`;
+    DT.wire(sheet,p);history.replaceState(null,'','#p/'+p.id);if(scroll)sheet.scrollIntoView({behavior:'smooth',block:'start'});}
+  parts.addEventListener('click',e=>{const c=e.target.closest('.part');if(c)open(+c.dataset.i,true);});
+  sheet.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)open(+g.dataset.go,true);if(e.target.closest('[data-close]')){sheet.hidden=true;cur=-1;[...parts.children].forEach(c=>c.classList.remove('on'));history.replaceState(null,'',' ');}});
+  document.getElementById('pfilters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('.pfilters button').forEach(x=>x.classList.toggle('on',x===b));[...parts.children].forEach(c=>c.classList.toggle('hide',b.dataset.t!=='all'&&!P[c.dataset.i].tags.includes(b.dataset.t)));if(cur>=0&&!vis().includes(cur)){sheet.hidden=true;cur=-1;}});
+  document.addEventListener('keydown',e=>{if(cur<0||e.metaKey||e.ctrlKey||e.target.tagName==='INPUT')return;const v=vis(),pos=v.indexOf(cur);if(e.key==='ArrowRight'||e.key==='j')open(v[(pos+1)%v.length],true);if(e.key==='ArrowLeft'||e.key==='k')open(v[(pos-1+v.length)%v.length],true);if(e.key==='Escape'){sheet.hidden=true;cur=-1;}});
+  document.getElementById('tl').innerHTML=D.experience.map(x=>`<div class="tl-item"><div class="when">${esc(x.when)}</div><b>${esc(x.role)} · ${esc(x.where)}</b><span>${esc(x.what)}</span></div>`).join('');
+  const m=location.hash.match(/^#p\/([\w-]+)/);if(m){const i=P.findIndex(p=>p.id===m[1]);if(i>=0){open(i,false);setTimeout(()=>sheet.scrollIntoView(),50);}}
+})();
 (async()=>{
   const el=document.getElementById('feed');
   const nice={PushEvent:'push',CreateEvent:'create',PullRequestEvent:'pull request',IssuesEvent:'issue',WatchEvent:'star',ForkEvent:'fork',ReleaseEvent:'release',IssueCommentEvent:'comment',DeleteEvent:'delete'};

@@ -42,7 +42,7 @@ a{color:var(--c6);text-decoration:none}a:hover{text-decoration:underline}
 #line{display:flex;align-items:baseline;width:100%}
 #line .ch{color:var(--c5);margin-right:1ch}
 #line .ch.err{color:var(--c1)}
-#in{flex:1;position:relative;background:transparent;border:0;outline:0;color:var(--c15);font:inherit;padding:0;margin:0;caret-color:transparent;min-width:10ch}
+#in{flex:1;position:relative;background:transparent;border:0;outline:0;color:var(--c15);font:inherit;padding:0;margin:0;caret-color:var(--c15);min-width:10ch}
 .inwrap{position:relative;flex:1;display:flex;align-items:baseline}#ghost{position:absolute;left:0;top:0;pointer-events:none;color:var(--c0);white-space:pre}
 .cursor{display:inline-block;width:1ch;height:1.1em;background:var(--c15);vertical-align:-2px;margin-left:-1ch;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
@@ -69,52 +69,20 @@ table.ls{border-collapse:collapse}table.ls td{padding:0 3ch 0 0}
   </div>
 </div>
 
+<script src="../projects.js"></script>
+<script src="../detail.js"></script>
 <script>
 (()=>{
 /* ---------- content ---------- */
-const P={ // projects
- shush:{t:'Shush / Subrosa',y:'2025–2026',s:'in daily use',d:`Voice dictation that lands in any app. Double-tap volume-down on Android or hold a
-hotkey on desktop, speak, done. Kotlin app, Electron app, Voxtral transcription on
-Supabase Edge Functions, optional Haiku 4.5 cleanup, usage tracking (1 000 words / 3 h).
-Plus a fine-tuned Moonshine Tiny (27M params) for German so it can run fully on-device.`,k:'kotlin electron react typescript supabase voxtral moonshine kaggle',l:{site:'https://subrosa-voice.de',android:'https://github.com/leonbubova/shush-app',desktop:'https://github.com/leonbubova/shush-app-electron',training:'https://github.com/leonbubova/shush-model-training'}},
- kaputt:{t:'kaputt',y:'2026',s:'live',d:`Break/fix wargame. Each level spins up a real k3d/Docker environment, sabotages one
-thing and hands you the incident like a teammate would. You fix it with real kubectl;
-a checker proves the system works again. CI, hints, scoreboard.  (try: wg level 1)`,k:'shell k3d kubectl helm docker psql',l:{site:'https://leonbubova.github.io/kaputt/',code:'https://github.com/leonbubova/kaputt'}},
- hausbert:{t:'Hausbert',y:'2025',s:'shipped',d:`Automated apartment hunting for Köln. Scrapes WG-Gesucht, Kleinanzeigen and Immowelt
-once globally, scores listings per user profile, pushes photo cards to a shared
-Telegram bot and drafts applications with the Claude API. Admin bot watches health.`,k:'typescript telegram claude-api scraping',l:{code:'https://github.com/leonbubova/hausbert'}},
- salieri:{t:'Salieri + harness',y:'2025–2026',s:'in progress',d:`My own coding agents. harness: ~450 lines, no build step, Node strips the TypeScript
-itself, API key read once from 1Password. Salieri: daemon, terminal client, skills and
-a live-test suite in a pnpm/turbo monorepo.`,k:'typescript node pnpm turbo vitest claude-api',l:{code:'https://github.com/leonbubova/salieri'}},
- kummerkasten:{t:'Kummerkasten',y:'2025',s:'hackathon',d:`Physical push-to-talk button (ESP32-S3) for bakery staff. Voice over BLE to a React
-Native app, Voxtral transcription, LLM triage. A sick note automatically organises
-cover in the team. Built at the Bäko hackathon.`,k:'esp32 ble react-native voxtral telegram',l:{code:'https://github.com/leonbubova/kummerkasten'}},
- 'research-paper-reader':{t:'Research Paper Reader',y:'2026',s:'live',d:`Dark reader for Harvard CS197 (AI Research Experiences). Markdown rendered at runtime:
-humans get themes, TOC and sentence bookmarks; agents fetch the raw .md as a context
-pack. No build, no framework, no node_modules.`,k:'html css js markdown',l:{site:'https://leonbubova.github.io/research-paper-reader/',code:'https://github.com/leonbubova/research-paper-reader'}},
- infra:{t:'infra + dotfiles',y:'2026',s:'proven',d:`Bare-metal Hetzner dev box: tailnet-only SSH, nftables lockdown with two-stage commit
-and deadman timer, btrfs + snapper, restic backups with a verified restore drill
-(RTO 6 s). Rehearsed on a cloud VM first, which found 12 real bugs.`,k:'shell tailscale nftables btrfs restic',l:{infra:'https://github.com/leonbubova/infra',dotfiles:'https://github.com/leonbubova/dotfiles'}},
- libertas:{t:'Libertas — mail triage',y:'2026',s:'client',d:`Inbox triage automation for a client, run as a documented operation: system
-description, risk register, handover doc and git hooks live next to the code.`,k:'shell n8n llm ops-docs',l:{repo:'https://github.com/leonbubova/libertas'}},
- 'dueling-book-killer':{t:'dueling-book-killer',y:'2025–2026',s:'engine done',d:`Yu-Gi-Oh! duel simulator built the right way round: pure, event-sourced JSON state
-machine first, interfaces later. Today a REPL for goldfishing and combo training.`,k:'typescript event-sourcing vitest docker',l:{code:'https://github.com/leonbubova/dueling-book-killer'}},
- 'the-gradient':{t:'The Gradient',y:'2026',s:'community',d:`WhatsApp channel and network for creatives in Köln who treat AI as material, not a
-trend. Zero-dependency Node server, Fly.io Frankfurt, auto-suspend.`,k:'node:http html fly.io',l:{code:'https://github.com/leonbubova/the-gradient'}},
- 'soft-landing':{t:'soft-landing',y:'2026',s:'client',d:`One-page site for a counselling practice. The interesting part is the harness:
-Playwright blocks the deploy on quiz paths, form and mobile menu; a screenshot run
-asserts layout at 10 viewport sizes.`,k:'vite playwright github-pages',l:{code:'https://github.com/leonbubova/soft-landing'}},
- 'cv-screening':{t:'LLM as recruiter support',y:'2026',s:'research',d:`Can an LLM rank CVs like a recruiter, and how would you prove it? 5-step scoring
-(knockout → relevance → career logic → outliers → ranking), 30 deliberately imperfect
-synthetic CVs, bias double-test, GDPR-first anonymisation. All in Markdown.`,k:'claude-code markdown eval-design',l:{'write-up':'mailto:bubova.leon@gmail.com?subject=CV%20screening%20case%20study'}},
-};
+const D=window.LEON,DT=window.LEON_DETAIL;const P={};D.projects.forEach(p=>P[p.id]=p);
 const FILES={
 'README.md':`# leonbubova.github.io
 
 hi, i'm leon.  software developer in köln.
 i build small, useful software end to end — apps, bots, agents, and the infra underneath.
 
-  ls projects/        list projects          open <name>     open a project's links
+  ls projects/        list projects          open <name>     full write-up + demo
+  cat experience.md   where i worked         cat ideas.md    what this site could do
   cat about.md        who i am               cat contact.md  how to reach me
   cat uses.md         my setup               cv              the pdf
   wg level 1          break something        help            everything else
@@ -124,9 +92,10 @@ tab completes, ↑ recalls history, ⌃L clears. type \`freshscreen off\` if the
 clearing on every command annoys you — it's a hook in my .zshrc, you get used to it.`,
 'about.md':`# about
 
-software developer, köln, ~6 years shipping. started with PHP (symfony/laravel),
-moved to typescript everywhere (react, react native, node, electron), and since 2024
-most of what i build has an LLM or a speech model somewhere in it.
+software engineer, köln. three years on tokenized payments inside the klarna app
+(500+ merchants, 40M+ users, weekly on-call), then subscriptions on open-banking rails
+at ivy. since 2025 i build my own things, and most of them have an LLM or a speech
+model somewhere in it.  → cat experience.md
 
 what i actually do:
   - products: subrosa (voice dictation, android + desktop, own german ASR model)
@@ -170,6 +139,7 @@ dotfiles: https://github.com/leonbubova/dotfiles`,
   S  uses page              (this file, as a page)
   S  köln footer            local time, weather, next gradient meetup
   S  easter eggs            sudo, cc, neofetch — already in this version`,
+'experience.md':'# experience\n\n'+window.LEON.experience.map(x=>'  '+x.when.padEnd(20)+x.role+' · '+x.where+'\n'+' '.repeat(22)+x.what.replace(/(.{1,60})(\s|$)/g,'$1\n'+' '.repeat(22)).trim()).join('\n\n'),
 '.zshrc':`export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
@@ -199,20 +169,21 @@ function md(text){ // tiny markdown colouring (bat-ish)
 }
 function renderPrompt(){
   promptEl.innerHTML=`<div><span class="blue">${cwd}</span> <span class="mag">main</span>${lastCmdT>2?` <span class="yel">${lastCmdT}s</span>`:''}</div>
-  <div id="line"><span class="ch${lastErr?' err':''}">❯</span><span class="inwrap"><span id="ghost"></span><input id="in" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="command"><span class="cursor"></span></span></div>`;
+  <div id="line"><span class="ch${lastErr?' err':''}">❯</span><span class="inwrap"><span id="ghost"></span><input id="in" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="command"></span></div>`;
   input=document.getElementById('in');ghost=document.getElementById('ghost');
   input.addEventListener('keydown',onKey);input.addEventListener('input',suggest);input.focus();
 }
 function suggest(){const v=input.value;ghost.textContent='';if(!v)return;const m=hist.slice().reverse().find(h=>h.startsWith(v)&&h!==v);if(m)ghost.textContent=m;}
 function ls(dir){
   if(dir==='projects'||dir==='projects/')return `<table class="ls">${chunk(Object.keys(P).map(k=>`<span class="dir">${k}/</span>`),3).map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;
-  if(!dir||dir==='.')return `<span class="dir">projects/</span>  <span class="md">README.md</span>  <span class="md">about.md</span>  <span class="md">contact.md</span>  <span class="md">uses.md</span>  <span class="md">ideas.md</span>  <span class="exe">cv.pdf</span>`;
+  if(!dir||dir==='.')return `<span class="dir">projects/</span>  <span class="md">README.md</span>  <span class="md">about.md</span>  <span class="md">experience.md</span>  <span class="md">contact.md</span>  <span class="md">uses.md</span>  <span class="md">ideas.md</span>  <span class="exe">cv.pdf</span>`;
   if(dir.startsWith('projects/')){const k=dir.split('/')[1];if(P[k])return `<span class="md">README.md</span>  <span class="exe">links</span>`;}
   return `<span class="red">ls: ${esc(dir)}: No such file or directory</span>`;
 }
 const chunk=(a,n)=>{const r=[];for(let i=0;i<a.length;i+=n)r.push(a.slice(i,i+n));return r;};
 function project(k){const p=P[k];if(!p)return `<span class="red">open: no project "${esc(k)}" — try: ls projects/</span>`;
-  return `<span class="b mag"># ${p.t}</span>  <span class="gray">${p.y}</span> · <span class="grn">${p.s}</span>\n\n${esc(p.d)}\n\n<span class="yel">stack</span>: ${p.k}\n`+Object.entries(p.l).map(([n,u])=>`  <span class="cyan">${n.padEnd(10)}</span><a href="${u}" target="_blank" rel="noopener">${u}</a>`).join('\n');}
+  const demo=(p.demo&&p.demo.type==='term')?'\n\n<span class="yel">demo</span>\n'+p.demo.lines.map(([a,b])=>a.trim()==='ok'?`  <span class="grn">✔ ${esc(b)}</span>`:a?`  <span class="mag">${esc(a)}</span><span class="wht">${esc(b)}</span>`:`  <span class="gray">${esc(b)}</span>`).join('\n'):'';
+  return `<span class="b mag"># ${esc(p.title)}</span>  <span class="gray">${esc(p.year)}</span> · <span class="grn">${esc(p.status)}</span>\n\n`+link(esc(DT.text(p))).replace(/^(what it is|how it works|the hard part|next)$/gm,'<span class="yel">$1</span>').replace(/^(stack): /m,'<span class="yel">$1</span>: ')+demo;}
 function neofetch(){const logo=`<span class="blue">   ██╗     ██████╗
    ██║     ██╔══██╗
    ██║     ██████╔╝
