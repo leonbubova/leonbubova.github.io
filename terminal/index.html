@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>leon@kitty: ~/leonbubova.github.io</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Leon Bubova's website as a terminal. Type help.">
+<link rel="shortcut icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Tokyo Night Storm — palette copied from ~/.config/kitty/kitty.conf */
+:root{
+  --bg:#232a42;--fg:#7aa2f7;--sel:#33467c;--selfg:#c0caf5;
+  --c0:#414868;--c1:#f7768e;--c2:#9ece6a;--c3:#e0af68;--c4:#7aa2f7;--c5:#bb9af7;--c6:#7dcfff;--c7:#a9b1d6;--c15:#c0caf5;
+  --dim:#565f89;--border:#292e42;--active:#7dcfff;--text:#92abd8;--text-dim:#4d5476;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:13px;line-height:1.1;-webkit-font-smoothing:antialiased}
+/* kitty: window_padding_width 20 35 0 35, adjust_line_height 110% */
+#kitty{height:100%;display:flex;flex-direction:column;padding:20px 35px 0 35px;overflow:hidden}
+#term{line-height:1.6}
+/* tmux status bar, position top */
+#status{display:flex;overflow:hidden;align-items:center;justify-content:space-between;color:var(--dim);height:22px;flex:none;user-select:none;white-space:pre}
+#status .left{display:flex}
+#status .sess{color:var(--c15);padding:0 20px 0 4px}
+#status .win{padding:0 8px}
+#status .win.cur{background:var(--sel);color:var(--c15);font-weight:700}
+#status .win.act{color:var(--c1)}
+#status .right{padding-right:4px}
+#pane{flex:1;overflow:auto;padding-top:8px;border-top:2px solid var(--border);position:relative}
+#pane:focus-within{border-top-color:var(--active)}
+#out{white-space:pre-wrap;word-break:break-word;margin:0}
+.dimline{color:var(--dim)}
+.blue{color:var(--c4)}.mag{color:var(--c5)}.yel{color:var(--c3)}.grn{color:var(--c2)}.red{color:var(--c1)}.cyan{color:var(--c6)}.wht{color:var(--c15)}.gray{color:var(--c0)}.fg{color:var(--fg)}
+.b{font-weight:700}
+a{color:var(--c6);text-decoration:none}a:hover{text-decoration:underline}
+.dir{color:var(--c4);font-weight:700}.exe{color:var(--c2)}.md{color:var(--c7)}
+/* prompt (pure) */
+#prompt{display:flex;flex-wrap:wrap;align-items:baseline}
+#line{display:flex;align-items:baseline;width:100%}
+#line .ch{color:var(--c5);margin-right:1ch}
+#line .ch.err{color:var(--c1)}
+#in{flex:1;position:relative;background:transparent;border:0;outline:0;color:var(--c15);font:inherit;padding:0;margin:0;caret-color:transparent;min-width:10ch}
+.inwrap{position:relative;flex:1;display:flex;align-items:baseline}#ghost{position:absolute;left:0;top:0;pointer-events:none;color:var(--c0);white-space:pre}
+.cursor{display:inline-block;width:1ch;height:1.1em;background:var(--c15);vertical-align:-2px;margin-left:-1ch;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+/* completion menu (zsh menu select) */
+#comp{color:var(--c7);white-space:pre-wrap}
+#comp .hdr{color:var(--c3)}
+#comp .sel{background:var(--sel);color:var(--c15)}
+/* nvim-ish pager */
+.box{border:1px solid var(--border);padding:8px 12px;margin:6px 0;color:var(--c7)}
+table.ls{border-collapse:collapse}table.ls td{padding:0 3ch 0 0}
+@media (max-width:600px){#kitty{padding:10px 12px 0 12px}body{font-size:12px}}
+</style>
+</head>
+<body>
+<div id="kitty">
+  <div id="status" aria-hidden="true">
+    <div class="left"><span class="sess">leon</span><span class="win">  1:site  </span><span class="win cur">  2:zsh  </span><span class="win">  3:claude  </span><span class="win">  4:btop  </span></div>
+    <div class="right" id="clock">--:-- </div>
+  </div>
+  <div id="pane">
+    <pre id="out"></pre>
+    <div id="prompt"></div>
+    <div id="comp"></div>
+  </div>
+</div>
+
+<script>
+(()=>{
+/* ---------- content ---------- */
+const P={ // projects
+ shush:{t:'Shush / Subrosa',y:'2025–2026',s:'in daily use',d:`Voice dictation that lands in any app. Double-tap volume-down on Android or hold a
+hotkey on desktop, speak, done. Kotlin app, Electron app, Voxtral transcription on
+Supabase Edge Functions, optional Haiku 4.5 cleanup, usage tracking (1 000 words / 3 h).
+Plus a fine-tuned Moonshine Tiny (27M params) for German so it can run fully on-device.`,k:'kotlin electron react typescript supabase voxtral moonshine kaggle',l:{site:'https://subrosa-voice.de',android:'https://github.com/leonbubova/shush-app',desktop:'https://github.com/leonbubova/shush-app-electron',training:'https://github.com/leonbubova/shush-model-training'}},
+ kaputt:{t:'kaputt',y:'2026',s:'live',d:`Break/fix wargame. Each level spins up a real k3d/Docker environment, sabotages one
+thing and hands you the incident like a teammate would. You fix it with real kubectl;
+a checker proves the system works again. CI, hints, scoreboard.  (try: wg level 1)`,k:'shell k3d kubectl helm docker psql',l:{site:'https://leonbubova.github.io/kaputt/',code:'https://github.com/leonbubova/kaputt'}},
+ hausbert:{t:'Hausbert',y:'2025',s:'shipped',d:`Automated apartment hunting for Köln. Scrapes WG-Gesucht, Kleinanzeigen and Immowelt
+once globally, scores listings per user profile, pushes photo cards to a shared
+Telegram bot and drafts applications with the Claude API. Admin bot watches health.`,k:'typescript telegram claude-api scraping',l:{code:'https://github.com/leonbubova/hausbert'}},
+ salieri:{t:'Salieri + harness',y:'2025–2026',s:'in progress',d:`My own coding agents. harness: ~450 lines, no build step, Node strips the TypeScript
+itself, API key read once from 1Password. Salieri: daemon, terminal client, skills and
+a live-test suite in a pnpm/turbo monorepo.`,k:'typescript node pnpm turbo vitest claude-api',l:{code:'https://github.com/leonbubova/salieri'}},
+ kummerkasten:{t:'Kummerkasten',y:'2025',s:'hackathon',d:`Physical push-to-talk button (ESP32-S3) for bakery staff. Voice over BLE to a React
+Native app, Voxtral transcription, LLM triage. A sick note automatically organises
+cover in the team. Built at the Bäko hackathon.`,k:'esp32 ble react-native voxtral telegram',l:{code:'https://github.com/leonbubova/kummerkasten'}},
+ 'research-paper-reader':{t:'Research Paper Reader',y:'2026',s:'live',d:`Dark reader for Harvard CS197 (AI Research Experiences). Markdown rendered at runtime:
+humans get themes, TOC and sentence bookmarks; agents fetch the raw .md as a context
+pack. No build, no framework, no node_modules.`,k:'html css js markdown',l:{site:'https://leonbubova.github.io/research-paper-reader/',code:'https://github.com/leonbubova/research-paper-reader'}},
+ infra:{t:'infra + dotfiles',y:'2026',s:'proven',d:`Bare-metal Hetzner dev box: tailnet-only SSH, nftables lockdown with two-stage commit
+and deadman timer, btrfs + snapper, restic backups with a verified restore drill
+(RTO 6 s). Rehearsed on a cloud VM first, which found 12 real bugs.`,k:'shell tailscale nftables btrfs restic',l:{infra:'https://github.com/leonbubova/infra',dotfiles:'https://github.com/leonbubova/dotfiles'}},
+ libertas:{t:'Libertas — mail triage',y:'2026',s:'client',d:`Inbox triage automation for a client, run as a documented operation: system
+description, risk register, handover doc and git hooks live next to the code.`,k:'shell n8n llm ops-docs',l:{repo:'https://github.com/leonbubova/libertas'}},
+ 'dueling-book-killer':{t:'dueling-book-killer',y:'2025–2026',s:'engine done',d:`Yu-Gi-Oh! duel simulator built the right way round: pure, event-sourced JSON state
+machine first, interfaces later. Today a REPL for goldfishing and combo training.`,k:'typescript event-sourcing vitest docker',l:{code:'https://github.com/leonbubova/dueling-book-killer'}},
+ 'the-gradient':{t:'The Gradient',y:'2026',s:'community',d:`WhatsApp channel and network for creatives in Köln who treat AI as material, not a
+trend. Zero-dependency Node server, Fly.io Frankfurt, auto-suspend.`,k:'node:http html fly.io',l:{code:'https://github.com/leonbubova/the-gradient'}},
+ 'soft-landing':{t:'soft-landing',y:'2026',s:'client',d:`One-page site for a counselling practice. The interesting part is the harness:
+Playwright blocks the deploy on quiz paths, form and mobile menu; a screenshot run
+asserts layout at 10 viewport sizes.`,k:'vite playwright github-pages',l:{code:'https://github.com/leonbubova/soft-landing'}},
+ 'cv-screening':{t:'LLM as recruiter support',y:'2026',s:'research',d:`Can an LLM rank CVs like a recruiter, and how would you prove it? 5-step scoring
+(knockout → relevance → career logic → outliers → ranking), 30 deliberately imperfect
+synthetic CVs, bias double-test, GDPR-first anonymisation. All in Markdown.`,k:'claude-code markdown eval-design',l:{'write-up':'mailto:bubova.leon@gmail.com?subject=CV%20screening%20case%20study'}},
+};
+const FILES={
+'README.md':`# leonbubova.github.io
+
+hi, i'm leon.  software developer in köln.
+i build small, useful software end to end — apps, bots, agents, and the infra underneath.
+
+  ls projects/        list projects          open <name>     open a project's links
+  cat about.md        who i am               cat contact.md  how to reach me
+  cat uses.md         my setup               cv              the pdf
+  wg level 1          break something        help            everything else
+
+this page is a fake shell that behaves like my real one (kitty + tmux + zsh + pure).
+tab completes, ↑ recalls history, ⌃L clears. type \`freshscreen off\` if the screen
+clearing on every command annoys you — it's a hook in my .zshrc, you get used to it.`,
+'about.md':`# about
+
+software developer, köln, ~6 years shipping. started with PHP (symfony/laravel),
+moved to typescript everywhere (react, react native, node, electron), and since 2024
+most of what i build has an LLM or a speech model somewhere in it.
+
+what i actually do:
+  - products: subrosa (voice dictation, android + desktop, own german ASR model)
+  - automation: telegram bots, mail triage, scraping, n8n — documented so you can run it
+  - agents: my own coding harness, evals, claude code all day
+  - infra: small servers done properly — locked down, backed up, restore-drilled
+
+how: "done is better than perfect" — then verify it. tests block deploys.
+docs are written while building, not after.
+
+github bio: "scared of pointers and doing the dishes."  still true.`,
+'contact.md':`# contact
+
+  email     bubova.leon@gmail.com     (reply < 24h)
+  github    https://github.com/leonbubova
+  linkedin  https://www.linkedin.com/in/leonbubova
+  cv        ../files/leon_bubova_cv.pdf
+
+available for freelance work — day-rate or project, german/english, remote or köln.`,
+'uses.md':`# uses
+
+  terminal   kitty (+ ghostty), tokyo night storm, jetbrains mono 13, line-height 110%
+  shell      zsh + oh-my-zsh, pure prompt, syntax-highlighting, autosuggestions
+  mux        tmux, status on top, vim panes, resurrect
+  editor     nvim; claude code as a daily pair (alias cc)
+  files      eza, broot, bat
+  machine    macbook air m2 — and a hetzner bare-metal box over tailscale for the heavy stuff
+  secrets    1password cli, manual only, never wired into automation
+  ai         claude api, voxtral, moonshine (fine-tuned), kaggle T4 for training
+
+dotfiles: https://github.com/leonbubova/dotfiles`,
+'ideas.md':`# ideas for this site  (S = an evening, M = a weekend)
+
+  S  dictation demo         web speech api mic button → "subrosa does this in every app"
+  M  kaputt in the browser  wg level 1 already works here; make 3 real levels
+  S  /now page              building / reading / available-for, dated monthly
+  S  ⌘K command palette     jump, copy mail, switch versions (v2 has a minimal one)
+  S  commit heatmap         github contribution grid from the events api
+  M  build-in-public log    weekly numbers + what broke, one md folder → site + linkedin
+  M  moonshine-de model card  WER per iteration, audio sample, in-browser ONNX demo
+  S  uses page              (this file, as a page)
+  S  köln footer            local time, weather, next gradient meetup
+  S  easter eggs            sudo, cc, neofetch — already in this version`,
+'.zshrc':`export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+source $ZSH/oh-my-zsh.sh
+autoload -U promptinit; promptinit
+prompt pure
+zstyle :prompt:pure:git:branch color magenta
+alias cc="claude"
+freshscreen on   # clear the screen before every command; see README.md`,
+};
+const STACK='typescript node react react-native electron kotlin python claude-api voxtral moonshine supabase docker k3d hetzner tailscale playwright esp32 ble php laravel symfony';
+
+/* ---------- terminal ---------- */
+const out=document.getElementById('out'),promptEl=document.getElementById('prompt'),comp=document.getElementById('comp'),pane=document.getElementById('pane');
+let hist=[],hi=0,fresh=true,lastErr=false,cwd='~/leonbubova.github.io',input,ghost,lastCmdT=0;
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const link=s=>s.replace(/(https?:\/\/[^\s)]+|mailto:[^\s)]+|\.\.\/files\/[^\s)]+)/g,m=>`<a href="${m}" target="_blank" rel="noopener">${m}</a>`).replace(/(bubova\.leon@gmail\.com)/g,'<a href="mailto:$1">$1</a>');
+function print(html){out.insertAdjacentHTML('beforeend',html+'\n');}
+function md(text){ // tiny markdown colouring (bat-ish)
+  return link(esc(text)).split('\n').map(l=>{
+    if(/^# /.test(l))return `<span class="b mag">${l}</span>`;
+    if(/^\s{2}[a-z0-9./ <>-]+\s{2,}/i.test(l)&&!/^\s{2}[SM]\s/.test(l))return l.replace(/^(\s{2}[^\s].*?)(\s{2,})(.*)$/,(m,a,b,c)=>`<span class="cyan">${a}</span>${b}<span class="wht">${c}</span>`);
+    if(/^\s{2}[SM]\s\s/.test(l))return l.replace(/^(\s{2})([SM])(\s\s)([^\s].*?)(\s{2,})(.*)$/,(m,a,e,b,n,c,d)=>`${a}<span class="${e==='S'?'grn':'yel'}">${e}</span>${b}<span class="cyan">${n}</span>${c}<span class="wht">${d}</span>`);
+    if(/^\s+- /.test(l))return l.replace(/^(\s+)-/,'$1<span class="mag">-</span>');
+    if(/^[a-z]+:\s/.test(l))return l.replace(/^([a-z]+):/,'<span class="yel">$1</span>:');
+    return `<span class="md">${l}</span>`;}).join('\n');
+}
+function renderPrompt(){
+  promptEl.innerHTML=`<div><span class="blue">${cwd}</span> <span class="mag">main</span>${lastCmdT>2?` <span class="yel">${lastCmdT}s</span>`:''}</div>
+  <div id="line"><span class="ch${lastErr?' err':''}">❯</span><span class="inwrap"><span id="ghost"></span><input id="in" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="command"><span class="cursor"></span></span></div>`;
+  input=document.getElementById('in');ghost=document.getElementById('ghost');
+  input.addEventListener('keydown',onKey);input.addEventListener('input',suggest);input.focus();
+}
+function suggest(){const v=input.value;ghost.textContent='';if(!v)return;const m=hist.slice().reverse().find(h=>h.startsWith(v)&&h!==v);if(m)ghost.textContent=m;}
+function ls(dir){
+  if(dir==='projects'||dir==='projects/')return `<table class="ls">${chunk(Object.keys(P).map(k=>`<span class="dir">${k}/</span>`),3).map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table>`;
+  if(!dir||dir==='.')return `<span class="dir">projects/</span>  <span class="md">README.md</span>  <span class="md">about.md</span>  <span class="md">contact.md</span>  <span class="md">uses.md</span>  <span class="md">ideas.md</span>  <span class="exe">cv.pdf</span>`;
+  if(dir.startsWith('projects/')){const k=dir.split('/')[1];if(P[k])return `<span class="md">README.md</span>  <span class="exe">links</span>`;}
+  return `<span class="red">ls: ${esc(dir)}: No such file or directory</span>`;
+}
+const chunk=(a,n)=>{const r=[];for(let i=0;i<a.length;i+=n)r.push(a.slice(i,i+n));return r;};
+function project(k){const p=P[k];if(!p)return `<span class="red">open: no project "${esc(k)}" — try: ls projects/</span>`;
+  return `<span class="b mag"># ${p.t}</span>  <span class="gray">${p.y}</span> · <span class="grn">${p.s}</span>\n\n${esc(p.d)}\n\n<span class="yel">stack</span>: ${p.k}\n`+Object.entries(p.l).map(([n,u])=>`  <span class="cyan">${n.padEnd(10)}</span><a href="${u}" target="_blank" rel="noopener">${u}</a>`).join('\n');}
+function neofetch(){const logo=`<span class="blue">   ██╗     ██████╗
+   ██║     ██╔══██╗
+   ██║     ██████╔╝
+   ██║     ██╔══██╗
+   ███████╗██████╔╝
+   ╚══════╝╚═════╝ </span>`.split('\n');
+  const info=[`<span class="b blue">leon</span>@<span class="b blue">köln</span>`,`-----------`,`<span class="yel">OS</span>: macOS (m2 air) + hetzner bare metal`,`<span class="yel">Shell</span>: zsh + pure`,`<span class="yel">Terminal</span>: kitty / tmux`,`<span class="yel">Editor</span>: nvim, claude code`,`<span class="yel">Uptime</span>: ~6 years shipping`,`<span class="yel">Packages</span>: 44 public repos`,`<span class="yel">Languages</span>: ts kotlin py shell (php: retired)`,`<span class="yel">Fear</span>: pointers, dishes`];
+  return logo.map((l,i)=>l+'   '+(info[i]||'')).join('\n')+'\n'+info.slice(logo.length).map(l=>' '.repeat(22)+l).join('\n')+`\n\n   <span style="background:#414868">   </span><span style="background:#f7768e">   </span><span style="background:#9ece6a">   </span><span style="background:#e0af68">   </span><span style="background:#7aa2f7">   </span><span style="background:#bb9af7">   </span><span style="background:#7dcfff">   </span><span style="background:#a9b1d6">   </span>`;}
+/* kaputt mini level */
+let wg=null;
+function wgCmd(a){
+  if(a[0]==='level'){wg={fixed:false,hints:3};return `<span class="yel">▸ level 1 — k8s</span>  environment up (fake, this is a website)\n\n<span class="wht">incident</span>: "api pods keep restarting since the 14:02 deploy" — teammate\n\nfind it, fix it, then <span class="cyan">wg check</span>.  stuck? <span class="cyan">wg hint</span>`;}
+  if(a[0]==='hint'){if(!wg)return 'no level loaded — wg level 1';if(!wg.hints)return `<span class="red">no hints left</span>`;wg.hints--;return [`<span class="yel">hint</span>: kubectl get pods`,`<span class="yel">hint</span>: kubectl logs api-7d9f`,`<span class="yel">hint</span>: kubectl set env deploy/api DATABASE_URL=…`][2-wg.hints];}
+  if(a[0]==='check'){if(!wg)return 'no level loaded — wg level 1';return wg.fixed?`<span class="grn b">✔ LEVEL SOLVED</span>  (${wg.hints} hints left) — the real thing: <a href="https://github.com/leonbubova/kaputt" target="_blank">github.com/leonbubova/kaputt</a>`:`<span class="red">✘ api still CrashLoopBackOff</span>`;}
+  if(a[0]==='progress')return `k8s   level 1  ${wg&&wg.fixed?'<span class="grn">solved</span>':'<span class="gray">open</span>'}\ndocker, psql, git, helm tracks: install the real one.`;
+  return `usage: wg level 1 | hint | check | progress`;}
+function kubectl(a){if(!wg)return `<span class="red">The connection to the server localhost:8080 was refused</span> — try: wg level 1`;
+  if(a[0]==='get')return `NAME       READY   STATUS             RESTARTS      AGE\napi-7d9f   ${wg.fixed?'1/1     <span class="grn">Running</span>            0':'0/1     <span class="red">CrashLoopBackOff</span>   5 (40s ago)'}   3m\nweb-1c2e   1/1     <span class="grn">Running</span>            0             3m`;
+  if(a[0]==='logs')return `[api] booting v1.4.2\n<span class="red">FATAL</span> DATABASE_URL is not set`;
+  if(a[0]==='set'&&/DATABASE_URL=/.test(a.join(' '))){wg.fixed=true;return `deployment.apps/api env updated\n<span class="gray">rollout restarting…</span>`;}
+  if(a[0]==='describe')return `Events:  Back-off restarting failed container`;
+  return `kubectl: try get pods | logs api-7d9f | set env deploy/api KEY=VALUE`;}
+
+const CMDS={
+ help:()=>`<span class="yel">-- commands --</span>
+  <span class="cyan">ls</span> [dir]           list files            <span class="cyan">cat</span> &lt;file&gt;      read a file
+  <span class="cyan">open</span> &lt;project&gt;    show a project        <span class="cyan">projects</span>        = ls projects/
+  <span class="cyan">cv</span>                open the pdf          <span class="cyan">contact</span>         = cat contact.md
+  <span class="cyan">neofetch</span>          the usual             <span class="cyan">history</span>         what you typed
+  <span class="cyan">wg</span> level 1        break something       <span class="cyan">kubectl</span> …       fix it
+  <span class="cyan">freshscreen</span> on|off  the zshrc hook      <span class="cyan">clear</span>           ⌃L
+  <span class="cyan">v1</span> / <span class="cyan">v2</span>           other site versions   <span class="cyan">cc</span>              you know`,
+ ls:a=>ls(a[0]),
+ ll:a=>ls(a[0]),
+ eza:a=>ls(a[0]),
+ projects:()=>ls('projects'),
+ cat:a=>{const f=(a[0]||'').replace(/^\.\//,'');if(!f)return `<span class="red">cat: missing file</span>`;if(FILES[f])return md(FILES[f]);const m=f.match(/^projects\/([^/]+)\/?(README\.md)?$/);if(m&&P[m[1]])return project(m[1]);if(f==='cv.pdf')return `<span class="gray">binary file — use: cv</span>`;return `<span class="red">cat: ${esc(f)}: No such file or directory</span>`;},
+ bat:a=>CMDS.cat(a),
+ open:a=>{if(!a[0])return 'open &lt;project&gt; — see ls projects/';return project(a[0].replace(/^projects\//,'').replace(/\/$/,''));},
+ cv:()=>{window.open('../files/leon_bubova_cv.pdf','_blank');return `<span class="gray">opening ../files/leon_bubova_cv.pdf</span>`;},
+ contact:()=>md(FILES['contact.md']),
+ about:()=>md(FILES['about.md']),
+ neofetch:neofetch,
+ whoami:()=>'leon',
+ pwd:()=>cwd,
+ cd:a=>{if(!a[0]||a[0]==='~'||a[0]==='..'||a[0]==='-'){cwd='~/leonbubova.github.io';return '';}return `<span class="red">cd: this shell has one directory. it's a website.</span>`;},
+ echo:a=>esc(a.join(' ')),
+ date:()=>new Date().toString(),
+ history:()=>hist.map((h,i)=>`  ${String(i+1).padStart(4)}  ${esc(h)}`).join('\n'),
+ clear:()=>{out.innerHTML='';return null;},
+ wg:wgCmd,
+ kubectl:kubectl,
+ k:kubectl,
+ freshscreen:a=>{fresh=a[0]!=='off';return `<span class="gray">freshscreen ${fresh?'on':'off'}</span>`;},
+ stack:()=>STACK.split(' ').map(s=>`<span class="cyan">${s}</span>`).join('  '),
+ sudo:()=>`<span class="red">leon is not in the sudoers file. This incident will be reported.</span>\n<span class="gray">(scared of pointers and doing the dishes.)</span>`,
+ cc:()=>`<span class="mag">✻</span> Claude Code v∞\n\n<span class="gray">the whole workflow:</span>\n  TODO.md → "ja" → worktree → plan → code → test → PR → "ist gut" → merge\n\n<span class="gray">(alias cc in .zshrc — cat .zshrc)</span>`,
+ claude:()=>CMDS.cc(),
+ vim:()=>`<span class="gray">nvim is the real editor. here you get:</span> cat`,
+ nvim:()=>CMDS.vim(),
+ tmux:()=>`<span class="gray">already inside tmux — look up.</span>`,
+ exit:()=>{setTimeout(()=>location.href='../',600);return `<span class="gray">[exit] logout — back to the classic page</span>`;},
+ v1:()=>{location.href='../benchcad/';return '';},
+ v2:()=>{location.href='../anime/';return '';},
+ rm:()=>`<span class="red">rm: nope.</span>`,
+ git:a=>a[0]==='log'?`<span class="yel">c0ffee1</span> add terminal version\n<span class="yel">b4dc0de</span> add anime version\n<span class="yel">5eed000</span> add benchcad version\n<span class="yel">47f76cb</span> change styles for project pictures and buttons`:a[0]==='status'?`On branch <span class="grn">main</span>\nnothing to commit, working tree clean`:`git: try log | status`,
+ ping:a=>`PING ${esc(a[0]||'köln')}: 56 data bytes\n64 bytes: icmp_seq=0 ttl=64 time=0.042 ms\n<span class="gray">--- reply &lt; 24h, usually faster ---</span>`,
+};
+const ALL=Object.keys(CMDS);
+function run(raw){
+  const line=raw.trim();if(!line)return renderPrompt();
+  hist.push(line);hi=hist.length;
+  if(fresh){out.innerHTML='';print(`<span class="dimline">❯ ${esc(line)}</span>`);}
+  else print(`<span class="blue">${cwd}</span> <span class="mag">main</span>\n<span class="mag">❯</span> <span class="wht">${esc(line)}</span>`);
+  const t0=performance.now();
+  const [c,...a]=line.split(/\s+/);
+  let res;lastErr=false;
+  if(CMDS[c]){res=CMDS[c](a);}
+  else if(P[c]){res=project(c);}
+  else{res=`<span class="red">zsh: command not found: ${esc(c)}</span>  <span class="gray">— try help</span>`;lastErr=true;}
+  if(res!==null&&res!==undefined)print(res);
+  lastCmdT=Math.round((performance.now()-t0)/1000);
+  renderPrompt();pane.scrollTop=pane.scrollHeight;
+}
+function complete(v){
+  const parts=v.split(/\s+/);const last=parts[parts.length-1];let pool;
+  if(parts.length===1)pool=ALL;
+  else if(parts[0]==='open')pool=Object.keys(P);
+  else pool=[...Object.keys(FILES),'projects/',...Object.keys(P).map(k=>'projects/'+k+'/')];
+  const c=pool.filter(x=>x.startsWith(last));
+  if(!c.length){comp.innerHTML='';return v;}
+  if(c.length===1){comp.innerHTML='';parts[parts.length-1]=c[0];return parts.join(' ')+(c[0].endsWith('/')?'':' ');}
+  comp.innerHTML=`<span class="hdr">-- ${parts.length===1?'commands':'files'} --</span>\n`+chunk(c,4).map(r=>r.map(x=>x.padEnd(24)).join('')).join('\n');
+  let pre=c[0];for(const x of c)while(!x.startsWith(pre))pre=pre.slice(0,-1);parts[parts.length-1]=pre;return parts.join(' ');
+}
+function onKey(e){
+  if(e.key==='Enter'){comp.innerHTML='';const v=input.value;run(v);}
+  else if(e.key==='Tab'){e.preventDefault();input.value=complete(input.value);suggest();}
+  else if(e.key==='ArrowUp'){e.preventDefault();if(hi>0){hi--;input.value=hist[hi];}}
+  else if(e.key==='ArrowDown'){e.preventDefault();if(hi<hist.length-1){hi++;input.value=hist[hi];}else{hi=hist.length;input.value='';}}
+  else if(e.key==='ArrowRight'&&ghost.textContent&&input.selectionStart===input.value.length){input.value=ghost.textContent;ghost.textContent='';}
+  else if(e.key==='l'&&e.ctrlKey){e.preventDefault();out.innerHTML='';}
+  else if(e.key==='c'&&e.ctrlKey){input.value='';comp.innerHTML='';}
+  else if(e.key==='Escape'){comp.innerHTML='';}
+  else if(e.key==='u'&&e.ctrlKey){e.preventDefault();input.value='';}
+}
+pane.addEventListener('click',e=>{if(e.target.tagName!=='A'&&!getSelection().toString())input&&input.focus();});
+const clock=document.getElementById('clock');const tick=()=>clock.textContent=new Intl.DateTimeFormat('de-DE',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Berlin'}).format(new Date())+' ';tick();setInterval(tick,10000);
+
+/* boot: type "cat README.md" like a human */
+renderPrompt();
+const boot='cat README.md';let i=0;
+(function type(){if(i<boot.length){input.value+=boot[i++];setTimeout(type,45+Math.random()*60);}else setTimeout(()=>run(boot),350);})();
+})();
+</script>
+</body>
+</html>

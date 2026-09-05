@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Leon Bubova — builds things that ship</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Leon Bubova. Software developer in Cologne. Voice dictation apps, agent harnesses, break/fix wargames, Telegram bots — and the infra underneath.">
+<link rel="shortcut icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f7f5;--bg2:#ffffff;--ink:#141414;--ink2:#4b4b4b;--ink3:#8a8a86;
+  --line:#dcdcd8;--line2:#ebebe8;--accent:#1f4fd8;--accent-bg:#e9eefc;--ok:#1a7f4b;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --w:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+.label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink3)}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1}
+h2{font-size:28px;font-weight:700;margin-bottom:8px}
+section{padding:72px 0;border-top:1px solid var(--line2)}
+.sub{color:var(--ink2);max-width:60ch;margin:0 0 32px}
+
+/* header */
+header{position:sticky;top:0;z-index:10;background:rgba(247,247,245,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line2)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--ink)}
+.logo b{color:var(--accent)}
+nav a{color:var(--ink2);font-size:14px;margin-left:22px}
+nav a:hover{color:var(--ink);text-decoration:none}
+nav .ic{display:inline-flex;vertical-align:middle}
+.switch{font-family:var(--mono);font-size:11px;border:1px solid var(--line);padding:4px 8px;border-radius:4px;color:var(--ink3)}
+
+/* hero */
+.hero{padding:88px 0 64px;border-top:0}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,64px);font-weight:800;letter-spacing:-.035em}
+.hero h1 span{color:var(--ink3);font-weight:500}
+.hero p.lead{font-size:18px;color:var(--ink2);max-width:52ch;margin:20px 0 28px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:6px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);font-size:14px;font-weight:500;transition:.15s}
+.btn:hover{border-color:var(--ink);text-decoration:none;transform:translateY(-1px)}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.primary:hover{background:#000}
+.btn .mono{font-size:12px;opacity:.75}
+.drawing{position:relative;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:24px;min-height:340px}
+.drawing svg{width:100%;height:auto;display:block}
+.drawing .corner{position:absolute;font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.1em}
+.drawing .tl{top:10px;left:14px}.drawing .tr{top:10px;right:14px}.drawing .bl{bottom:10px;left:14px}.drawing .br{bottom:10px;right:14px}
+.note{font-family:var(--mono);font-size:11px;color:var(--ink3);margin-top:10px}
+
+/* badges row */
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px;padding-top:24px;border-top:1px dashed var(--line)}
+.badge{font-family:var(--mono);font-size:11px;padding:5px 9px;border:1px solid var(--line);border-radius:4px;color:var(--ink2);background:var(--bg2)}
+
+/* three blocks */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:22px}
+.card h3{font-size:16px;margin-bottom:6px}
+.card p{margin:0;color:var(--ink2);font-size:14px}
+.card .label{margin-bottom:12px;display:block}
+.card ul{margin:10px 0 0;padding-left:18px;color:var(--ink2);font-size:14px}
+.card li{margin:3px 0}
+
+/* chart */
+.chart{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:20px 20px 12px;overflow-x:auto}
+.chart svg{min-width:640px;width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* projects grid */
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.part{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:0;overflow:hidden;display:flex;flex-direction:column;transition:.15s;position:relative}
+.part:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.part .fig{aspect-ratio:16/9;background:repeating-linear-gradient(0deg,transparent 0 23px,var(--line2) 23px 24px),repeating-linear-gradient(90deg,transparent 0 23px,var(--line2) 23px 24px),var(--bg);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line2)}
+.part .fig svg{width:120px;height:80px;stroke:var(--ink);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.part .body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column}
+.part .id{font-family:var(--mono);font-size:11px;color:var(--ink3);display:flex;justify-content:space-between;margin-bottom:8px}
+.part .id .st{color:var(--ok)}
+.part .id .st.wip{color:#b7791f}
+.part h3{font-size:17px;margin-bottom:6px}
+.part h3 a{color:var(--ink)}
+.part p{margin:0 0 12px;color:var(--ink2);font-size:14px;flex:1}
+.part .stack{font-family:var(--mono);font-size:11px;color:var(--ink3);margin-bottom:10px}
+.part .links{display:flex;gap:14px;font-size:13px}
+.part.wide{grid-column:span 3;display:grid;grid-template-columns:1fr 1fr}
+.part.wide .fig{aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line2)}
+.part.wide .fig svg{width:260px;height:180px}
+.part.wide h3{font-size:22px}
+.part.wide p{font-size:15px}
+
+/* timeline */
+.tl-list{border-left:1px solid var(--line);margin-left:6px;padding-left:24px}
+.tl-item{position:relative;padding-bottom:24px}
+.tl-item:before{content:"";position:absolute;left:-29px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--ink)}
+.tl-item .when{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.tl-item b{display:block;font-size:15px}
+.tl-item span{color:var(--ink2);font-size:14px}
+
+/* tasks */
+.tasks{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.task{border:1px solid var(--line);border-radius:8px;padding:18px;background:var(--bg2)}
+.task .label{margin-bottom:8px;display:block}
+.task h3{font-size:15px;margin-bottom:6px}
+.task p{margin:0;font-size:13px;color:var(--ink2)}
+.task a{display:inline-block;margin-top:10px;font-size:13px}
+
+/* activity */
+.feed{background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.feed .row{display:grid;grid-template-columns:150px 1fr 110px;gap:16px;padding:12px 18px;border-top:1px solid var(--line2);font-size:14px;align-items:center}
+.feed .row:first-child{border-top:0}
+.feed .row .mono{color:var(--ink3)}
+.feed .row .ev{font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:3px;background:var(--bg);border:1px solid var(--line2);color:var(--ink2);justify-self:end}
+.feed .empty{padding:18px;color:var(--ink3);font-size:14px}
+
+/* ideas */
+.ideas{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.idea{border:1px dashed var(--line);border-radius:8px;padding:16px 18px;background:transparent}
+.idea b{display:block;font-size:14px;margin-bottom:4px}
+.idea span{font-size:13px;color:var(--ink2)}
+.idea .tag{font-family:var(--mono);font-size:10px;color:var(--accent);background:var(--accent-bg);padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:1px}
+
+/* stats footer */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:8px;background:var(--bg2);overflow:hidden}
+.stat{padding:18px 20px;border-left:1px solid var(--line2)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.02em}
+.stat span{font-family:var(--mono);font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.1em}
+footer{padding:40px 0 56px;color:var(--ink3);font-size:13px;border-top:1px solid var(--line2)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--ink2)}
+
+@media (max-width:900px){
+  .hero .grid,.part.wide{grid-template-columns:1fr}
+  .three,.parts,.tasks,.ideas{grid-template-columns:1fr 1fr}
+  .part.wide{grid-column:span 2}
+  .part.wide .fig{aspect-ratio:16/9;border-right:0;border-bottom:1px solid var(--line2)}
+  .stats{grid-template-columns:repeat(3,1fr)}.stat{border-top:1px solid var(--line2)}
+  nav a{margin-left:14px}
+}
+@media (max-width:600px){
+  .three,.parts,.tasks,.ideas,.stats{grid-template-columns:1fr}
+  .part.wide{grid-column:span 1}
+  .feed .row{grid-template-columns:1fr;gap:4px}.feed .row .ev{justify-self:start}
+  nav a.txt{display:none}
+  section{padding:52px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="./">leon<b>bubova</b>.github.io <span style="color:var(--ink3)">/ benchcad</span></a>
+    <nav>
+      <a class="txt" href="#projects">Projects</a>
+      <a class="txt" href="#timeline">Timeline</a>
+      <a class="txt" href="#activity">Activity</a>
+      <a class="txt" href="#contact">Contact</a>
+      <a href="https://github.com/leonbubova" title="GitHub" class="ic" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+      <a class="switch" href="../anime/" title="Switch to the dark, animated version">v2 →</a>
+      <a class="switch" href="../terminal/" title="Switch to the terminal version">v3 →</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="label" style="margin-bottom:18px">Leon Bubova · Software developer · Cologne</div>
+        <h1>The entrance to shipping<br><span>with AI in the loop.</span></h1>
+        <p class="lead">I build small, useful software end to end: a voice dictation app with its own fine-tuned speech model, a break/fix wargame for Kubernetes, Telegram bots that hunt apartments, and the bare-metal infra all of it runs on.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#projects">See the parts <span class="mono">↓</span></a>
+          <a class="btn" href="https://github.com/leonbubova">GitHub <span class="mono">44 repos</span></a>
+          <a class="btn" href="mailto:bubova.leon@gmail.com">Email <span class="mono">reply &lt; 24h</span></a>
+        </div>
+      </div>
+
+      <div class="drawing" aria-label="Technical drawing of Leon">
+        <span class="corner tl">DWG LB-2026 · REV C</span>
+        <span class="corner tr">SCALE 1:1</span>
+        <span class="corner bl">MATERIAL: TS · PY · KT · SH</span>
+        <span class="corner br">TOL ±0.1</span>
+        <svg viewBox="0 0 420 300" font-family="JetBrains Mono, monospace" font-size="9" fill="none" stroke="#141414" stroke-width="1.2">
+          <!-- main body: a laptop-ish block -->
+          <rect x="110" y="80" width="200" height="130" rx="6"/>
+          <rect x="122" y="92" width="176" height="96" rx="3" stroke-dasharray="3 3"/>
+          <rect x="95" y="212" width="230" height="12" rx="3"/>
+          <!-- inner: terminal prompt -->
+          <text x="132" y="112" fill="#141414" stroke="none" font-size="10">$ wg level 1</text>
+          <text x="132" y="128" fill="#8a8a86" stroke="none">pods: CrashLoopBackOff</text>
+          <text x="132" y="144" fill="#8a8a86" stroke="none">$ kubectl set env …</text>
+          <text x="132" y="160" fill="#1a7f4b" stroke="none">✔ LEVEL SOLVED</text>
+          <!-- mic dongle -->
+          <rect x="330" y="120" width="30" height="50" rx="15"/>
+          <line x1="345" y1="170" x2="345" y2="190"/>
+          <line x1="332" y1="190" x2="358" y2="190"/>
+          <path d="M325 145 a20 20 0 0 0 40 0" stroke-dasharray="2 2"/>
+          <!-- dimension lines -->
+          <g stroke="#8a8a86" stroke-width="1">
+            <line x1="110" y1="60" x2="310" y2="60"/><line x1="110" y1="55" x2="110" y2="65"/><line x1="310" y1="55" x2="310" y2="65"/>
+            <line x1="80" y1="80" x2="80" y2="210"/><line x1="75" y1="80" x2="85" y2="80"/><line x1="75" y1="210" x2="85" y2="210"/>
+            <line x1="330" y1="235" x2="360" y2="235"/><line x1="330" y1="230" x2="330" y2="240"/><line x1="360" y1="230" x2="360" y2="240"/>
+            <line x1="345" y1="100" x2="380" y2="100"/><circle cx="345" cy="100" r="1.5" fill="#8a8a86"/>
+          </g>
+          <g fill="#8a8a86" stroke="none">
+            <text x="182" y="52">~6 yrs shipping</text>
+            <text x="50" y="150" transform="rotate(-90 50 150)">full stack</text>
+            <text x="322" y="252">⌀ voice</text>
+            <text x="384" y="103">⌀ 27M params (ASR)</text>
+            <text x="112" y="245">z 3×2 (ts · py · kotlin · shell · react · node)</text>
+          </g>
+          <!-- centerlines -->
+          <line x1="210" y1="70" x2="210" y2="220" stroke="#dcdcd8" stroke-dasharray="8 3 1 3"/>
+          <line x1="100" y1="145" x2="320" y2="145" stroke="#dcdcd8" stroke-dasharray="8 3 1 3"/>
+        </svg>
+        <div class="note">Annotations are illustrative, not the developer's actual dimensions.</div>
+      </div>
+    </div>
+
+    <div class="badges" aria-label="Stack">
+      <span class="badge">TypeScript</span><span class="badge">Node</span><span class="badge">React / React Native</span><span class="badge">Electron</span><span class="badge">Kotlin</span><span class="badge">Python</span><span class="badge">Claude API</span><span class="badge">Voxtral / Moonshine</span><span class="badge">Supabase</span><span class="badge">Docker · k3d</span><span class="badge">Hetzner · Tailscale</span><span class="badge">Playwright</span><span class="badge">ESP32 · BLE</span><span class="badge">PHP · Laravel · Symfony</span>
+    </div>
+  </div>
+</section>
+
+<!-- THREE BLOCKS -->
+<section>
+  <div class="wrap">
+    <div class="three">
+      <div class="card">
+        <span class="label">01 · What I do</span>
+        <h3>Product-shaped software, not tickets</h3>
+        <p>Idea → prototype → users, usually alone, usually in a week. I keep the stack small so nothing blocks the next iteration.</p>
+        <ul><li>Apps: Android, desktop (Electron), web</li><li>Bots &amp; automation: Telegram, mail triage, scraping</li><li>AI: agent harnesses, fine-tuned ASR, LLM eval</li></ul>
+      </div>
+      <div class="card">
+        <span class="label">02 · How I work</span>
+        <h3>Tests, resets, and a written record</h3>
+        <p>Every level in <a href="https://github.com/leonbubova/kaputt">kaputt</a> resets clean. Every deploy in <a href="https://github.com/leonbubova/soft-landing">soft-landing</a> is blocked by Playwright. Every infra step is rehearsed in the cloud before touching metal.</p>
+        <ul><li>“Done is better than perfect” — then verify it</li><li>Docs written while building, not after</li><li>Claude Code as a daily pair, harnesses of my own</li></ul>
+      </div>
+      <div class="card">
+        <span class="label">03 · Grounded in</span>
+        <h3>Cologne, and real people using the thing</h3>
+        <p>Subrosa is used daily by early-access testers. Hausbert found apartments in Köln. The Gradient is a local network for creatives who use AI as material.</p>
+        <ul><li>Available for freelance work, day-rate or project</li><li>German / English, remote or Köln</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHART -->
+<section>
+  <div class="wrap">
+    <div class="label">Frontier chart</div>
+    <h2>Stack over time</h2>
+    <p class="sub">What I was actually shipping with, per year. Filled points are things still in production.</p>
+    <div class="chart">
+      <svg viewBox="0 0 760 300" font-family="JetBrains Mono, monospace" font-size="10">
+        <defs><style>.gl{stroke:#ebebe8}.ax{fill:#8a8a86}</style></defs>
+        <g class="gl" stroke-width="1">
+          <line x1="80" y1="40" x2="740" y2="40"/><line x1="80" y1="90" x2="740" y2="90"/><line x1="80" y1="140" x2="740" y2="140"/><line x1="80" y1="190" x2="740" y2="190"/><line x1="80" y1="240" x2="740" y2="240"/>
+        </g>
+        <g class="ax">
+          <text x="70" y="44" text-anchor="end">AI / ML</text>
+          <text x="70" y="94" text-anchor="end">Infra</text>
+          <text x="70" y="144" text-anchor="end">Mobile</text>
+          <text x="70" y="194" text-anchor="end">Web TS</text>
+          <text x="70" y="244" text-anchor="end">PHP</text>
+          <text x="100" y="275">2020</text><text x="205" y="275">2021</text><text x="310" y="275">2022</text><text x="415" y="275">2023</text><text x="520" y="275">2024</text><text x="625" y="275">2025</text><text x="712" y="275">2026</text>
+        </g>
+        <!-- paths -->
+        <polyline points="110,240 215,240 320,235" fill="none" stroke="#8a8a86" stroke-width="1.5"/>
+        <polyline points="215,200 320,190 425,190 530,190 635,190 720,190" fill="none" stroke="#1f4fd8" stroke-width="1.5"/>
+        <polyline points="530,150 635,140 720,140" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
+        <polyline points="635,100 720,90" fill="none" stroke="#c2410c" stroke-width="1.5"/>
+        <polyline points="530,60 635,45 720,40" fill="none" stroke="#1a7f4b" stroke-width="1.5"/>
+        <!-- points -->
+        <g stroke-width="1.5" fill="#fff">
+          <circle cx="110" cy="240" r="4" stroke="#8a8a86"/><circle cx="215" cy="240" r="4" stroke="#8a8a86"/><circle cx="320" cy="235" r="4" stroke="#8a8a86"/>
+          <circle cx="215" cy="200" r="4" stroke="#1f4fd8" fill="#1f4fd8"/><circle cx="425" cy="190" r="4" stroke="#1f4fd8" fill="#1f4fd8"/><circle cx="635" cy="190" r="4" stroke="#1f4fd8" fill="#1f4fd8"/><circle cx="720" cy="190" r="4" stroke="#1f4fd8" fill="#1f4fd8"/>
+          <circle cx="530" cy="150" r="4" stroke="#7c3aed"/><circle cx="635" cy="140" r="4" stroke="#7c3aed" fill="#7c3aed"/><circle cx="720" cy="140" r="4" stroke="#7c3aed" fill="#7c3aed"/>
+          <circle cx="635" cy="100" r="4" stroke="#c2410c"/><circle cx="720" cy="90" r="4" stroke="#c2410c" fill="#c2410c"/>
+          <circle cx="530" cy="60" r="4" stroke="#1a7f4b"/><circle cx="635" cy="45" r="4" stroke="#1a7f4b" fill="#1a7f4b"/><circle cx="720" cy="40" r="4" stroke="#1a7f4b" fill="#1a7f4b"/>
+        </g>
+        <g class="ax" font-size="9">
+          <text x="118" y="230">paper-hands</text><text x="222" y="256">klimfab · os-cillation</text>
+          <text x="330" y="180">formate · two-pizzas</text><text x="540" y="180">hausbert · salieri · kaputt</text>
+          <text x="540" y="165">react-native</text><text x="643" y="130">shush (kotlin)</text>
+          <text x="643" y="115">hetzner · tailscale · restic</text>
+          <text x="470" y="52">claude api</text><text x="600" y="35">moonshine-de · harness</text>
+        </g>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#1a7f4b"></i>AI / ML</span><span><i style="background:#c2410c"></i>Infra</span><span><i style="background:#7c3aed"></i>Mobile</span><span><i style="background:#1f4fd8"></i>Web / TS</span><span><i style="background:#8a8a86"></i>PHP (retired)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="label">Part gallery</div>
+    <h2>Projects</h2>
+    <p class="sub">Selected from 44 public repos. Ordered by how much I'd want you to click on them.</p>
+    <div class="parts">
+
+      <article class="part wide">
+        <div class="fig">
+          <svg viewBox="0 0 260 180"><rect x="30" y="30" width="200" height="120" rx="10"/><rect x="45" y="45" width="170" height="70" rx="4" stroke-dasharray="3 3"/><rect x="115" y="60" width="30" height="45" rx="15"/><line x1="130" y1="105" x2="130" y2="118"/><path d="M105 85a25 25 0 0 0 50 0"/><line x1="60" y1="135" x2="200" y2="135"/><line x1="60" y1="140" x2="160" y2="140"/><text x="90" y="170" font-size="9" fill="#8a8a86" stroke="none" font-family="JetBrains Mono">shush · v0.8.0</text></svg>
+        </div>
+        <div class="body">
+          <div class="id"><span>PROJ-001 · 2025–2026</span><span class="st">● IN USE</span></div>
+          <h3><a href="https://subrosa-voice.de">Shush / Subrosa — voice dictation, everywhere</a></h3>
+          <p>Double-tap volume-down on Android or hold a hotkey on desktop, speak, and the text lands in whatever app has focus. Android app in Kotlin, desktop app in Electron, transcription via Voxtral on Supabase Edge Functions with optional Haiku 4.5 cleanup. Plus a fine-tuned <b>Moonshine Tiny (27M params) for German</b> so dictation can run fully on-device. Early-access users get 1,000 words per 3 hours, tracked and rate-limited.</p>
+          <div class="stack">kotlin · electron · react · typescript · supabase · voxtral · moonshine · kaggle</div>
+          <div class="links"><a href="https://subrosa-voice.de">subrosa-voice.de</a><a href="https://github.com/leonbubova/shush-app">android</a><a href="https://github.com/leonbubova/shush-app-electron">desktop</a><a href="https://github.com/leonbubova/shush-model-training">model training</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><path d="M20 15h80v50H20z"/><path d="M20 27h80"/><circle cx="27" cy="21" r="2"/><circle cx="35" cy="21" r="2"/><path d="M30 40l8 6-8 6M45 52h20"/><path d="M85 38l-12 12M73 38l12 12" stroke="#c2410c"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-002 · 2026</span><span class="st">● LIVE</span></div>
+          <h3><a href="https://github.com/leonbubova/kaputt">kaputt</a></h3>
+          <p>A break/fix wargame. Each level spins up a real k3d/Docker environment, sabotages one thing, and hands you the incident like a teammate would. You fix it with real <code>kubectl</code>; a checker proves the system works again. CI, hints, scoreboard.</p>
+          <div class="stack">shell · k3d · kubectl · helm · docker · psql</div>
+          <div class="links"><a href="https://leonbubova.github.io/kaputt/">site</a><a href="https://github.com/leonbubova/kaputt">code</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><path d="M25 65V35l35-22 35 22v30z"/><path d="M50 65V48h20v17"/><circle cx="95" cy="20" r="9"/><path d="M92 20l2 2 4-4"/><path d="M15 25l-6-4M15 30h-8"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-003 · 2025</span><span class="st">● SHIPPED</span></div>
+          <h3><a href="https://github.com/leonbubova/hausbert">Hausbert</a></h3>
+          <p>Automated apartment hunting for Köln. Scrapes WG-Gesucht, Kleinanzeigen and Immowelt once globally, scores listings per user profile, pushes photo cards to a shared Telegram bot, and drafts applications with the Claude API. A second bot handles monitoring and scraper health.</p>
+          <div class="stack">typescript · telegram · claude api · scraping</div>
+          <div class="links"><a href="https://github.com/leonbubova/hausbert">code</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><rect x="15" y="20" width="40" height="45" rx="4"/><circle cx="35" cy="42" r="8"/><path d="M62 40h14M76 40l-4-3M76 40l-4 3"/><rect x="82" y="15" width="24" height="50" rx="5"/><path d="M88 25h12M88 32h12M88 39h8"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-004 · 2025</span><span class="st">● HACKATHON</span></div>
+          <h3><a href="https://github.com/leonbubova/kummerkasten">Kummerkasten</a></h3>
+          <p>A physical push-to-talk button (ESP32-S3) for bakery staff. Voice goes over BLE to a React Native app, gets transcribed with Voxtral, analysed by an LLM, and if it's a sick note the app organises cover in the team. Built at the Bäko hackathon.</p>
+          <div class="stack">esp32 · ble · react native · voxtral · telegram</div>
+          <div class="links"><a href="https://github.com/leonbubova/kummerkasten">code</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><rect x="15" y="15" width="90" height="50" rx="4"/><path d="M25 30l6 5-6 5M36 40h14"/><path d="M60 25v30M70 30h25M70 40h25M70 50h18" stroke-dasharray="2 2"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-005 · 2025–2026</span><span class="st wip">● IN PROGRESS</span></div>
+          <h3><a href="https://github.com/leonbubova/salieri">Salieri + harness</a></h3>
+          <p>My own coding agents. <b>harness</b> is ~450 lines, no build step, Node strips the TypeScript itself, API key read once from 1Password. <b>Salieri</b> is the grown-up version: a daemon, a terminal client, skills, and a live-test suite in a pnpm/turbo monorepo.</p>
+          <div class="stack">typescript · node · pnpm · turbo · vitest · claude api</div>
+          <div class="links"><a href="https://github.com/leonbubova/salieri">salieri</a><a href="https://github.com/leonbubova/leonbubova">harness (soon)</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><rect x="30" y="12" width="60" height="56" rx="3"/><path d="M40 26h40M40 36h40M40 46h28"/><circle cx="82" cy="58" r="5"/><path d="M14 40h10M96 40h10"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-006 · 2026</span><span class="st">● LIVE</span></div>
+          <h3><a href="https://leonbubova.github.io/research-paper-reader/">Research Paper Reader</a></h3>
+          <p>A clean dark reader for Harvard CS197 (AI Research Experiences). Markdown rendered at runtime so a human gets themes, TOC and sentence bookmarks, and an agent can fetch the raw .md as a context pack. No build, no framework.</p>
+          <div class="stack">html · css · js · markdown</div>
+          <div class="links"><a href="https://leonbubova.github.io/research-paper-reader/">site</a><a href="https://github.com/leonbubova/research-paper-reader">code</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><rect x="20" y="20" width="80" height="40" rx="3"/><path d="M20 60l40-25 40 25" /><path d="M20 20l40 25 40-25"/><circle cx="100" cy="20" r="6" fill="#f7f7f5"/><path d="M98 20l1.5 1.5 3-3"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-007 · 2026</span><span class="st">● CLIENT</span></div>
+          <h3><a href="https://github.com/leonbubova/libertas">Libertas — mail triage</a></h3>
+          <p>Inbox triage automation for a client, run as a documented operation: system description, risk register, handover doc and git hooks live next to the code. The kind of project where the docs are part of the deliverable.</p>
+          <div class="stack">shell · n8n · llm · ops docs</div>
+          <div class="links"><a href="https://github.com/leonbubova/libertas">repo</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><rect x="18" y="18" width="84" height="44" rx="4"/><path d="M30 62v6M90 62v6M18 40h84"/><circle cx="60" cy="40" r="10"/><path d="M60 30v-8M60 50v8" stroke-dasharray="2 2"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-008 · 2026</span><span class="st">● PROVEN</span></div>
+          <h3><a href="https://github.com/leonbubova/infra">infra + dotfiles</a></h3>
+          <p>Bare-metal Hetzner dev server: tailnet-only SSH, nftables lockdown with a two-stage commit and deadman timer, btrfs + snapper, restic backups with a verified restore drill (RTO 6 s). Rehearsed on a cloud VM first, which found 12 real bugs.</p>
+          <div class="stack">shell · tailscale · nftables · btrfs · restic</div>
+          <div class="links"><a href="https://github.com/leonbubova/infra">infra</a><a href="https://github.com/leonbubova/dotfiles">dotfiles</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><rect x="25" y="15" width="30" height="45" rx="3"/><rect x="65" y="20" width="30" height="45" rx="3" transform="rotate(8 80 42)"/><path d="M33 25h14M33 32h14M33 39h8"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-009 · 2025–2026</span><span class="st wip">● ENGINE DONE</span></div>
+          <h3><a href="https://github.com/leonbubova/dueling-book-killer">dueling-book-killer</a></h3>
+          <p>A Yu-Gi-Oh! duel simulator built the right way round: a pure, event-sourced JSON state machine first, interfaces later. Today a terminal REPL for goldfishing and combo training; a Vite + React frontend will consume the same engine.</p>
+          <div class="stack">typescript · event sourcing · vitest · docker</div>
+          <div class="links"><a href="https://github.com/leonbubova/dueling-book-killer">code</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><circle cx="40" cy="40" r="18"/><circle cx="80" cy="40" r="18"/><path d="M60 22v36" stroke-dasharray="2 2"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-010 · 2026</span><span class="st">● COMMUNITY</span></div>
+          <h3><a href="https://github.com/leonbubova/the-gradient">The Gradient</a></h3>
+          <p>A WhatsApp channel and growing network for creatives in Köln who treat AI as material, not a trend. Zero-dependency Node server, static front, Fly.io in Frankfurt with auto-suspend.</p>
+          <div class="stack">node:http · html · fly.io</div>
+          <div class="links"><a href="https://github.com/leonbubova/the-gradient">code</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><path d="M20 60c15-30 30-40 40-40s25 10 40 40"/><rect x="30" y="22" width="20" height="12" rx="2"/><rect x="70" y="22" width="20" height="12" rx="2"/><path d="M60 20v40" stroke-dasharray="2 2"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-011 · 2026</span><span class="st">● SHIPPED</span></div>
+          <h3><a href="https://github.com/leonbubova/soft-landing">soft-landing</a></h3>
+          <p>One-page site for a counselling practice. Plain HTML/CSS/JS with Vite, but the interesting part is the harness: Playwright tests for quiz paths, forms and the mobile menu block the deploy, and a screenshot run asserts layout at 10 viewport sizes.</p>
+          <div class="stack">vite · playwright · github pages</div>
+          <div class="links"><a href="https://github.com/leonbubova/soft-landing">code</a></div>
+        </div>
+      </article>
+
+      <article class="part">
+        <div class="fig"><svg viewBox="0 0 120 80"><rect x="20" y="15" width="80" height="50" rx="3"/><path d="M30 30h30M30 40h50M30 50h20"/><path d="M80 25l12 12M92 25L80 37" stroke="#1a7f4b"/></svg></div>
+        <div class="body">
+          <div class="id"><span>PROJ-012 · 2026</span><span class="st wip">● RESEARCH</span></div>
+          <h3><a href="#">LLM as recruiter support</a></h3>
+          <p>Can an LLM rank CVs as well as a recruiter, and how would you prove it? A 5-step scoring pipeline (knockout → relevance → career logic → outliers → ranking), 30 deliberately imperfect synthetic CVs, a bias double-test, and GDPR-first anonymisation. All in Markdown, so the medium is the documentation.</p>
+          <div class="stack">claude code · markdown · eval design</div>
+          <div class="links"><a href="mailto:bubova.leon@gmail.com?subject=CV%20screening%20case%20study">ask for the write-up</a></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="wrap">
+    <div class="label">Revision history</div>
+    <h2>Timeline</h2>
+    <p class="sub">The short version. The long version is a PDF nobody reads.</p>
+    <div class="tl-list">
+      <div class="tl-item"><div class="when">2025 – now</div><b>Independent developer, Köln</b><span>Own products (Subrosa), client automation (mail triage, websites), agent tooling. Building in public on LinkedIn.</span></div>
+      <div class="tl-item"><div class="when">2023 – 2024</div><b>Frontend / fullstack, TypeScript stack</b><span>React, React Native, Node, Cypress, Jest, Storybook at the day job. Side: formate, two-pizzas, algo-trader, a GitHub-style habit tracker.</span></div>
+      <div class="tl-item"><div class="when">2020 – 2021</div><b>Fullstack developer, os-cillation GmbH</b><span>PHP (Symfony/Laravel), React, MySQL, CI. Weekend project: paper-hands, a paper-trading app, built twice.</span></div>
+      <div class="tl-item"><div class="when">2018 – 2020</div><b>Developer intern, econius GmbH</b><span>First production code. WordPress-based product catalogue for Klimfab.</span></div>
+      <div class="tl-item"><div class="when">2014 –</div><b>Computer Science, Universität Siegen</b><span>Where the fear of pointers was born.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TASKS -->
+<section>
+  <div class="wrap">
+    <div class="label">Task breakdown</div>
+    <h2>What you can hire me for</h2>
+    <p class="sub">Four matched capabilities. Each has at least one shipped example above.</p>
+    <div class="tasks">
+      <div class="task"><span class="label">T1</span><h3>MVP in a week</h3><p>Web, Android or desktop. Auth, payments, a backend that doesn't fall over. You get a URL, not a deck.</p><a href="#projects">→ Subrosa, soft-landing</a></div>
+      <div class="task"><span class="label">T2</span><h3>LLM features that hold up</h3><p>Agents, structured extraction, transcription, evals. With rate limits, fallbacks and a bias check.</p><a href="#projects">→ Hausbert, CV screening</a></div>
+      <div class="task"><span class="label">T3</span><h3>Automation &amp; bots</h3><p>Telegram, mail, scraping, n8n. Documented so your team can run it without me.</p><a href="#projects">→ Libertas, Kummerkasten</a></div>
+      <div class="task"><span class="label">T4</span><h3>Small infra, done properly</h3><p>A server that's locked down, backed up, and restorable. Rehearsed before it touches production.</p><a href="#projects">→ infra, kaputt</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITY -->
+<section id="activity">
+  <div class="wrap">
+    <div class="label">Live</div>
+    <h2>Recent activity</h2>
+    <p class="sub">Pulled from the public GitHub events API on page load. If this is empty, I'm either on holiday or the rate limit hit.</p>
+    <div class="feed" id="feed"><div class="empty">Loading…</div></div>
+  </div>
+</section>
+
+<!-- IDEAS -->
+<section id="ideas">
+  <div class="wrap">
+    <div class="label">Backlog</div>
+    <h2>Sections &amp; gimmicks to add next</h2>
+    <p class="sub">Things this page could do that a PDF can't. Marked by effort.</p>
+    <div class="ideas">
+      <div class="idea"><b>Dictation demo <span class="tag">S</span></b><span>A mic button using the Web Speech API. Visitor speaks, text appears. Then a line: “Subrosa does this in every app, offline.”</span></div>
+      <div class="idea"><b>kaputt in the browser <span class="tag">M</span></b><span>A fake terminal: <code>wg level 1</code> prints an incident, a few commands solve it. Teaches the product in 30 seconds.</span></div>
+      <div class="idea"><b>/now page <span class="tag">S</span></b><span>What I'm building, reading, and available for this month. Dated. Linked from the header.</span></div>
+      <div class="idea"><b>⌘K command palette <span class="tag">S</span></b><span>Jump to projects, copy email, switch design version. Signals “I use tools like this” without saying it.</span></div>
+      <div class="idea"><b>Commit heatmap <span class="tag">S</span></b><span>GitHub-style contribution grid rendered from the events API, or your own habit-tracker repo reused.</span></div>
+      <div class="idea"><b>Build-in-public log <span class="tag">M</span></b><span>Weekly entries: numbers, what broke, what shipped. Feeds LinkedIn and the site from one Markdown folder.</span></div>
+      <div class="idea"><b>Uses page <span class="tag">S</span></b><span>Hardware, editor, dotfiles, the Hetzner box, the Claude Code setup. Link straight to the dotfiles repo.</span></div>
+      <div class="idea"><b>Cologne footer <span class="tag">S</span></b><span>Local time, weather, and “next Gradient meetup” pulled from a JSON file. Anchors you as the Köln AI person.</span></div>
+      <div class="idea"><b>Model card for moonshine-de <span class="tag">M</span></b><span>WER per iteration as a chart, audio sample, and a “try German dictation in the browser” ONNX demo.</span></div>
+      <div class="idea"><b>Konami / typed easter egg <span class="tag">S</span></b><span>Type <code>sudo</code> anywhere and the page replies “Scared of pointers and doing the dishes.”</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="contact">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>44</b><span>public repos</span></div>
+      <div class="stat"><b>6+</b><span>years shipping</span></div>
+      <div class="stat"><b>27M</b><span>params fine-tuned</span></div>
+      <div class="stat"><b>3</b><span>bots in production</span></div>
+      <div class="stat"><b>6 s</b><span>backup restore RTO</span></div>
+    </div>
+    <div class="ctas" style="margin-top:28px">
+      <a class="btn primary" href="mailto:bubova.leon@gmail.com">bubova.leon@gmail.com</a>
+      <a class="btn" href="https://github.com/leonbubova">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/leonbubova">LinkedIn</a>
+      <a class="btn" href="../files/leon_bubova_cv.pdf">CV <span class="mono">pdf</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Leon Bubova · Köln · <a href="../anime/">switch to v2 (dark, animated)</a></span>
+    <span class="mono">DWG LB-2026 · REV C · no cookies, no analytics</span>
+  </div>
+</footer>
+
+<script>
+(async()=>{
+  const el=document.getElementById('feed');
+  const nice={PushEvent:'push',CreateEvent:'create',PullRequestEvent:'pull request',IssuesEvent:'issue',WatchEvent:'star',ForkEvent:'fork',ReleaseEvent:'release',IssueCommentEvent:'comment',DeleteEvent:'delete'};
+  const ago=d=>{const s=(Date.now()-new Date(d))/1e3;if(s<3600)return Math.floor(s/60)+' min ago';if(s<86400)return Math.floor(s/3600)+' h ago';return Math.floor(s/86400)+' d ago'};
+  try{
+    const r=await fetch('https://api.github.com/users/leonbubova/events/public');
+    if(!r.ok)throw 0;
+    const ev=(await r.json()).filter(e=>e.type!=='DeleteEvent').slice(0,8);
+    if(!ev.length)throw 0;
+    el.innerHTML=ev.map(e=>{
+      const repo=e.repo.name.replace('leonbubova/','');
+      let what='';
+      if(e.type==='PushEvent'){const c=e.payload.commits||[];what=c.length?c[c.length-1].message.split('\n')[0]:'pushed';}
+      else if(e.type==='CreateEvent')what='created '+e.payload.ref_type+(e.payload.ref?' '+e.payload.ref:'');
+      else if(e.type==='ReleaseEvent')what='released '+(e.payload.release&&e.payload.release.tag_name||'');
+      else what=(nice[e.type]||e.type);
+      return `<div class="row"><a href="https://github.com/${e.repo.name}">${repo}</a><span>${what.replace(/</g,'&lt;')}</span><span class="ev">${nice[e.type]||e.type} · ${ago(e.created_at)}</span></div>`;
+    }).join('');
+  }catch(_){el.innerHTML='<div class="empty">GitHub API unavailable right now. <a href="https://github.com/leonbubova">See the profile instead →</a></div>';}
+})();
+</script>
+</body>
+</html>
