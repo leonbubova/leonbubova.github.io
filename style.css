@@ -48,7 +48,7 @@ section:first-child{border-top:0}
 h3{font-size:32px;font-weight:300;margin-bottom:var(--s4);scroll-margin-top:var(--s3)}
 p{font-size:17px;margin-bottom:var(--s3);max-width:68ch}
 blockquote{border-left:3px solid #666;color:#666;font-size:18px;font-style:italic;line-height:1.8;padding:.6em 2em;margin:var(--s4) 0}
-.facts{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);font-family:var(--mono);font-size:12px;color:var(--ink3);text-transform:lowercase}
+.facts{max-width:none;display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);font-family:var(--mono);font-size:12px;color:var(--ink3);text-transform:lowercase}
 .facts span::before{content:"· ";}
 .facts span:first-child::before{content:""}
 .hint{color:var(--ink2);font-size:15px}
