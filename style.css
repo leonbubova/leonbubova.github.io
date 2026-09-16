@@ -18,7 +18,7 @@ kbd{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-b
 #logo{grid-row:1;grid-column:1;width:60px;height:60px;border-radius:50%;border:solid 2px black;line-height:1.15;font-weight:300}
 #l{font-size:28px;position:relative;left:13px;top:10px}
 #b{font-size:28px;position:relative;left:12px;top:14px}
-#navigation{position:absolute;top:5%;right:10%;font-size:22px;text-align:right;transition:top 1.2s ease-in-out}
+#navigation{position:absolute;top:5%;right:10%;font-size:22px;text-align:right;transition:top .35s ease-out}
 #navigation.moved-navigation{top:35vh}
 #navigation ul li{margin-top:20px}
 #navigation ul li:first-child{margin-top:0}
