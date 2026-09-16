@@ -8,7 +8,7 @@ window.LEON = {
   },
   experience: [
     { when: "2025 – now", where: "Independent", role: "Freelance & own products, Köln",
-      what: "Deliberate break from employment to build. Shipped Subrosa (voice dictation, Android + desktop, own German speech model), client automation and websites, and a stack of agent tooling. Building in public on LinkedIn." },
+      what: "Deliberate break from employment to build. Shipped Subrosa (voice dictation, Android + desktop, own German speech model), client automation and websites, and a stack of agent tooling." },
     { when: "Jun – Dec 2024", where: "Ivy GmbH", role: "Backend Engineer",
       what: "Architected the internal API flow for subscriptions inside Ivy's account-to-account payment platform: data model, service communication, external provider integrations with webhooks and error recovery across multiple providers." },
     { when: "Oct 2021 – May 2024", where: "Klarna Bank AB", role: "Engineer",
