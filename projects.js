@@ -12,7 +12,7 @@ window.LEON = {
     { when: "Jun – Dec 2024", where: "Ivy GmbH", role: "Backend Engineer",
       what: "Architected the internal API flow for subscriptions inside Ivy's account-to-account payment platform: data model, service communication, external provider integrations with webhooks and error recovery across multiple providers." },
     { when: "Oct 2021 – May 2024", where: "Klarna Bank AB", role: "Engineer",
-      what: "Built and ran three Node.js microservices for tokenized payments used by 500+ merchants (Uber, Voi, Instacart) inside the Klarna App (40M+ users). Weekly on-call with full ownership, Datadog. Led the adoption of Kafka for external messaging and built the notification service (10k+ sends/day). Defined growth KPIs for the subscription feature (~400k MAU) in Amplitude. React Native contributions to the app." },
+      what: "Built and ran three Node.js microservices for tokenized payments used by 500+ merchants (Uber, Voi, Instacart) inside the Klarna App (40M+ users). Monthly on-call rotation: one week per month as first responder for production incidents on our services, using Datadog, ChaosSearch, Sentry and Splunk. Led the adoption of Kafka for external messaging and built the notification service (10k+ sends/day). Defined growth KPIs for the subscription feature (~400k MAU) in Amplitude. React Native contributions to the app." },
     { when: "Dec 2020 – Sep 2021", where: "os-cillation GmbH", role: "Fullstack Developer",
       what: "Validation logic for automated landing-page generation, up to 80,000 pages per request, across interconnected Symfony and Laravel services. Refactored legacy modules in a 2M+ line codebase." },
     { when: "Oct 2018 – Nov 2020", where: "econius GmbH", role: "Web Developer & DevOps, working student",
@@ -203,7 +203,7 @@ window.LEON = {
     {
       id: "klarna", title: "Klarna App payments", year: "2021 – 2024", status: "day job", tags: ["work"],
       tagline: "Three Node.js microservices for tokenized payments, 500+ merchants, 40M+ app users.",
-      what: "In a cross-functional team inside the Klarna App: the services that let merchants like Uber, Voi and Instacart charge a stored payment method. Weekly on-call with full ownership: Datadog dashboards, incident triage in production.",
+      what: "In a cross-functional team inside the Klarna App: the services that let merchants like Uber, Voi and Instacart charge a stored payment method. Monthly on-call rotation: one week per month as first responder for production incidents, with Datadog, ChaosSearch, Sentry and Splunk for dashboards, logs and error triage.",
       how: ["Led the adoption of Kafka for external messaging and built the notification service: 10k+ email and push sends per day.", "Defined and tracked growth KPIs for the subscription feature (~400k MAU) in Amplitude with programmatic event tracking.", "React Native + TypeScript work in the app itself."],
       hard: "",
       stack: "node · typescript · kafka · aws · datadog · amplitude · react native",
