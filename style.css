@@ -39,7 +39,7 @@ h2{font-size:22px;font-weight:300;margin-top:14px;line-height:1.4}
 	#navigation.moved-navigation{top:24px}
 	#navigation ul li{margin-top:10px}
 	#hero{height:auto;min-height:0;padding:96px 6vw 32px}
-	#welcome{padding-bottom:32px}
+	#welcome{padding:28px 0 32px}
 }
 
 /* ---------- content ---------- */
