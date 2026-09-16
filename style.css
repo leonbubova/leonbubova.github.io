@@ -29,7 +29,7 @@ h1{font-size:38px;font-family:var(--mono);font-weight:400;overflow:hidden;white-
 h2{font-size:22px;font-weight:300;margin-top:14px;line-height:1.4}
 #to-bottom{grid-row:3;grid-column:1;text-align:center}
 #to-bottom a{display:inline-block;padding:8px}
-#to-bottom svg{width:18px;height:44px;fill:none;stroke:#8a8a8a;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 2.4s ease-in-out infinite}
+#to-bottom svg{width:18px;height:30px;fill:none;stroke:#8a8a8a;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 2.4s ease-in-out infinite}
 #to-bottom a:hover svg{stroke:#111}
 @keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 @media (max-width:600px){
