@@ -152,45 +152,6 @@ window.LEON = {
       demo: { type: "term", lines: [["$ ", "curl -s …/research-paper-reader/md/lecture-03.md | head -3"], ["", "# Lecture 3 — Reading papers at speed"], ["", "..."], ["", "→ 11 k tokens, straight into the agent's context"]] }
     },
     {
-      id: "dueling-book-killer", title: "dueling-book-killer", year: "2025 – 2026", status: "engine done", tags: ["web"],
-      tagline: "A Yu-Gi-Oh! duel simulator built the right way round: event-sourced state machine first, UI later.",
-      what: "Existing simulators are UI first and rules nowhere. This one is a pure JSON state machine: every action is an event, state is a fold over events, so replay, undo and testing are free. Today it's a terminal REPL for goldfishing and combo training; a Vite + React front end will consume the exact same engine.",
-      how: [
-        "One ETL call to ygoprodeck builds data/cards.json and a sample Blue-Eyes deck.",
-        "REPL: `move hand1 monster`, `move deck/blue-eyes-white hand`, `train blue-eyes` for drilling opening lines.",
-        "vitest covers the engine and the trainer; Docker for the eventual web deploy."
-      ],
-      hard: "Keeping UI concerns out of the engine so the REPL and the future web front end share one truth.",
-      stack: "typescript · event sourcing · vitest · docker",
-      links: { "code (private)": "https://github.com/leonbubova/dueling-book-killer" },
-      demo: { type: "term", lines: [["duel> ", "move hand1 monster"], ["", "event 07 SUMMON  Blue-Eyes White Dragon → M1"], ["duel> ", "train blue-eyes"], ["", "opening line 3/12: hand [Sage, Melody, Trade-In, …]"], ["duel> ", "undo"], ["", "state ← fold(events[0..6])"]] }
-    },
-    {
-      id: "cv-screening", title: "LLM as recruiter support", year: "2026", status: "research", tags: ["ai"],
-      tagline: "Can an LLM rank CVs as well as a recruiter, and how would you prove it without fooling yourself?",
-      what: "Started as a joke on LinkedIn (\"just upload the CVs to ChatGPT\"). Turned into a proper experiment with a recruiter and a copywriter: one real job, 30 real anonymised CVs plus 30 synthetic ones, recruiter and LLM rank independently, then compare overlap, reasoning and whether the recruiter can spot the synthetic ones.",
-      how: [
-        "A 5-step scoring pipeline mirroring how recruiters actually read: hard knockout → relevance → career logic → positive outliers → ranking, every score with a written reason.",
-        "Synthetic CVs deliberately imperfect: gaps, typos, career changers, exaggerations, three education paths.",
-        "Bias double-test: same CV, different name and age; anonymisation as a separate step before the model ever sees the text. GDPR Art. 22: decision support, never the decision.",
-        "Everything is Markdown: prompts, criteria, results. The medium is the documentation."
-      ],
-      hard: "The middle of the ranking. Top 5 and bottom 15 were trivially separated; ranks 6–15 are where a human weighs differently and where the real learning is.",
-      stack: "claude code · markdown · eval design",
-      links: { "ask for the write-up": "mailto:bubova.leon@gmail.com?subject=CV%20screening%20case%20study" },
-      demo: { type: "chart", label: "LLM score, 30 synthetic CVs (first run)", points: [["#1", 9.7], ["#2", 9.5], ["#3", 9.2], ["#4", 8.8], ["#5", 8.0], ["#6", 7.1], ["#7", 7.0], ["#8", 6.4], ["#10", 5.8], ["#15", 5.0], ["#16", 0], ["#30", 0]], note: "all 15 weak candidates correctly knocked out" }
-    },
-    {
-      id: "the-gradient", title: "The Gradient", year: "2026", status: "community", tags: ["web"],
-      tagline: "A network for creatives in Köln who treat AI as material, not a trend.",
-      what: "A WhatsApp channel with curated tool finds and workflows for designers, marketers and builders, growing towards real meetups. The landing page is a zero-dependency Node server on Fly.io in Frankfurt that suspends when idle and auto-starts on request.",
-      how: ["server.js on node:http only, clean URLs, health check. Static HTML + CSS, no build. Alpine Docker image, non-root, auto-suspend."],
-      hard: "",
-      stack: "node:http · html · fly.io · docker",
-      links: { "code": "https://github.com/leonbubova/the-gradient" },
-      demo: { type: "plain", text: "Weekly: 5 tools, 2 workflows, 1 opinion. Köln first, then everywhere." }
-    },
-    {
       id: "soft-landing", title: "soft-landing", year: "2026", status: "shipped", tags: ["web"],
       tagline: "A counselling practice's one-pager where the test harness is the interesting part.",
       what: "Plain HTML, CSS and JS bundled with Vite and deployed to GitHub Pages. What makes it worth listing: `npm test` drives the quiz paths, contact form, legal modal and mobile menu in a real Chrome on desktop and mobile viewports, and blocks the deploy on failure. `npm run screens` takes full-page shots at 10 viewport sizes and asserts layout.",

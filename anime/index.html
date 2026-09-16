@@ -293,7 +293,7 @@ const PARTS=[
   {id:'speech',name:'speech model',sub:'voxtral · moonshine-de · 27M params',proj:'moonshine-de',color:0xff7d36,build:g=>{g.add(cyl(.5,.5,.9,24,0,0,0));const m=cyl(.56,.56,.08,24,0,.55,0);g.add(m);for(let i=0;i<8;i++){const r=cyl(.05,.05,.7,6,Math.cos(i/8*6.283)*.85,0,Math.sin(i/8*6.283)*.85);g.add(r);}}},
   {id:'api',name:'node services',sub:'klarna · ivy · supabase edge',proj:'klarna',color:0xffa828,build:g=>{g.add(box(2.4,.5,1.2,3));for(let i=0;i<3;i++)g.add(box(.5,.56,.5,0,0,-.3+i*.3,-1.6+i*.9));}},
   {id:'kafka',name:'messaging',sub:'kafka · telegram bots · 10k sends/day',proj:'hausbert',color:0xffcc2a,build:g=>{for(let i=0;i<12;i++){const a=i/12*6.283;const s=box(.45,.3,.22,0,Math.cos(a)*1.1,0,Math.sin(a)*1.1);s.rotation.y=-a;g.add(s);}g.add(torus(1.1,.03));}},
-  {id:'db',name:'data',sub:'postgres · event sourcing · restic',proj:'dueling-book-killer',color:0xb7ff54,build:g=>{g.add(cyl(1.0,1.0,.28,32,0,.35,0));g.add(cyl(1.0,1.0,.28,32,0,0,0));g.add(cyl(1.0,1.0,.28,32,0,-.35,0));}},
+  {id:'db',name:'data',sub:'postgres · event sourcing · restic',proj:'infra',color:0xb7ff54,build:g=>{g.add(cyl(1.0,1.0,.28,32,0,.35,0));g.add(cyl(1.0,1.0,.28,32,0,0,0));g.add(cyl(1.0,1.0,.28,32,0,-.35,0));}},
   {id:'k8s',name:'cluster',sub:'k3d · kubectl · kaputt',proj:'kaputt',color:0x39d1a3,build:g=>{for(let x=-1;x<=1;x++)for(let z=-1;z<=1;z++)g.add(box(.55,.55,.55,0,x*.75,0,z*.75));}},
   {id:'metal',name:'bare metal',sub:'hetzner · tailscale · nftables · btrfs',proj:'infra',color:0x4b8bff,build:g=>{g.add(box(3.2,.22,2.0,0));for(let i=0;i<4;i++)g.add(box(.12,.5,2.0,0,-1.2+i*.8,-.35,0));g.add(box(3.0,.06,.3,0,0,.14,.7));g.add(box(3.0,.06,.3,0,0,.14,-.7));}},
 ];
@@ -340,7 +340,7 @@ const scrub=document.getElementById('scrub');for(let i=0;i<48;i++)scrub.appendCh
 addEventListener('scroll',onPageScroll,{passive:true});onPageScroll();
 
 /* ---------- feature sections ---------- */
-const FEAT=[['shush','#ff4b4b'],['kaputt','#39d1a3'],['hausbert','#ffcc2a'],['salieri','#ff7d36'],['infra','#4b8bff'],['cv-screening','#b7ff54']];
+const FEAT=[['shush','#ff4b4b'],['kaputt','#39d1a3'],['hausbert','#ffcc2a'],['salieri','#ff7d36'],['infra','#4b8bff']];
 document.getElementById('features').innerHTML=FEAT.map(([id,c],k)=>{const p=P.find(x=>x.id===id),i=P.indexOf(p);return `<section class="feat" style="--acc:${c}" data-i="${i}"><div class="reveal"><div class="k">${String(k+1).padStart(2,'0')} · ${esc(p.year)} · ${esc(p.status)}</div><h2>${esc(p.title)}</h2><p class="tl">${esc(p.tagline)}</p><p class="txt">${esc(p.what)}</p><span class="more" data-open="${i}">read how it works →</span></div><div class="out reveal"><div class="hd"><span>${esc(p.id)}</span><b>illustrative demo</b></div>${DT.demo(p)}</div></section>`;}).join('');
 document.querySelectorAll('.feat').forEach(s=>{const p=P[+s.dataset.i];const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();DT.wire(s,p);}},{threshold:.35});io.observe(s);});
 document.getElementById('features').addEventListener('click',e=>{const m=e.target.closest('[data-open]');if(m)openP(+m.dataset.open);});
